@@ -1,0 +1,217 @@
+.tshirts-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.tshirts-header {
+  padding: 70px 6% 45px;
+}
+
+.tshirts-label {
+  margin: 0 0 10px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+
+  color: #888;
+}
+
+.tshirts-header h1 {
+  margin: 0 0 14px;
+
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 0.95;
+
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.tshirts-description {
+  max-width: 520px;
+
+  margin: 0;
+
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.tshirts-shop {
+  width: min(1400px, 88%);
+  margin: 0 auto 100px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 35px;
+}
+
+.tshirts-results {
+  min-width: 0;
+  flex: 1;
+}
+
+.tshirts-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 42px;
+  margin-bottom: 24px;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.tshirts-toolbar > p {
+  margin: 0 0 14px;
+
+  font-size: 11px;
+  color: #777;
+}
+
+.tshirts-sort {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 14px;
+}
+
+.tshirts-sort label {
+  font-size: 11px;
+  color: #777;
+}
+
+.tshirts-sort select {
+  padding: 8px 28px 8px 10px;
+
+  border: 1px solid #ddd;
+  background: #fff;
+
+  color: #111;
+  font-size: 11px;
+
+  cursor: pointer;
+  outline: none;
+}
+
+.tshirts-sort select:focus {
+  border-color: #000;
+}
+
+.tshirts-products {
+  display: grid;
+
+  grid-template-columns: repeat(
+    3,
+    minmax(0, 1fr)
+  );
+
+  gap: 28px 18px;
+}
+
+.tshirts-loading,
+.tshirts-error,
+.tshirts-no-results {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.tshirts-loading p,
+.tshirts-error,
+.tshirts-no-results p {
+  color: #777;
+  font-size: 13px;
+}
+
+.tshirts-no-results h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.tshirts-no-results p {
+  margin: 0 0 22px;
+}
+
+.tshirts-no-results button {
+  padding: 11px 18px;
+
+  border: none;
+  background: #000;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.tshirts-no-results button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 1050px) {
+  .tshirts-shop {
+    width: 92%;
+    gap: 25px;
+  }
+
+  .tshirts-products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 750px) {
+  .tshirts-header {
+    padding: 55px 20px 35px;
+  }
+
+  .tshirts-shop {
+    width: calc(100% - 40px);
+
+    flex-direction: column;
+
+    gap: 30px;
+  }
+
+  .product-filters {
+    width: 100%;
+    padding: 0 0 25px;
+
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .filter-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tshirts-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .tshirts-products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tshirts-header h1 {
+    font-size: 42px;
+  }
+
+  .tshirts-products {
+    grid-template-columns: 1fr;
+  }
+}

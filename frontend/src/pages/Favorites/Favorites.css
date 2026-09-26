@@ -1,0 +1,341 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.favorites-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.favorites-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 62px 36px 90px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.favorites-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 40px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.favorites-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.favorites-header h1 {
+  margin: 0;
+  color: #111;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.favorites-header p {
+  margin: 10px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.favorites-count {
+  flex-shrink: 0;
+  color: #777;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.favorites-product-card {
+  width: 100%;
+}
+
+.favorites-product-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #f3f3f3;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  isolation: isolate;
+  transition: transform 0.2s ease;
+}
+
+.favorites-product-image:hover {
+  transform: translateY(-2px);
+}
+
+.favorites-product-image > span {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 12px;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.favorites-product-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.02) 40%,
+      rgba(0, 0, 0, 0.68) 100%
+    );
+}
+
+/* =========================================
+   HEART
+========================================= */
+
+.favorites-heart {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.favorites-heart:hover {
+  transform: scale(1.08);
+  background: #fff;
+}
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.favorites-product-bottom {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+  color: #fff;
+}
+
+.favorites-product-bottom h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.favorites-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.favorites-price-current {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.favorites-price-old {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  text-decoration: line-through;
+}
+
+/* =========================================
+   VIEW
+========================================= */
+
+.favorites-view-button {
+  flex-shrink: 0;
+  padding: 0 0 4px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.favorites-view-button:hover {
+  opacity: 0.65;
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.favorites-empty {
+  min-height: 430px;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.favorites-empty-icon {
+  margin-bottom: 18px;
+  color: #222;
+  font-size: 42px;
+}
+
+.favorites-empty h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.favorites-empty p {
+  max-width: 410px;
+  margin: 0 0 25px;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.favorites-empty button {
+  border: none;
+  background: #111;
+  color: #fff;
+  padding: 13px 22px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.favorites-empty button:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.favorites-loading {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 13px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .favorites-grid {
+    grid-template-columns: repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  }
+}
+
+@media (max-width: 800px) {
+  .favorites-container {
+    padding: 45px 20px 70px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    );
+    gap: 15px;
+  }
+
+  .favorites-header h1 {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 520px) {
+  .favorites-header {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 28px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .favorites-product-bottom {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .favorites-product-bottom h3 {
+    font-size: 14px;
+  }
+
+  .favorites-heart {
+    top: 12px;
+    right: 12px;
+  }
+}

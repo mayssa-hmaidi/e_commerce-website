@@ -1,0 +1,501 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.account-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.account-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 65px 36px 90px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.account-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.account-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.account-header h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.account-header p {
+  margin: 10px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.account-logout-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: #111;
+  color: #fff;
+  padding: 12px 17px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.account-logout-top:hover {
+  background: #2a2a2a;
+  transform: translateY(-1px);
+}
+
+.account-logout-top svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.account-profile-card {
+  margin-top: 30px;
+  border: 1px solid #e2e2e2;
+  padding: 25px;
+  background: #fff;
+}
+
+.account-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.account-section-heading > div:first-child span,
+.account-section-heading-simple span,
+.account-security > div > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #888;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.account-section-heading h2,
+.account-section-heading-simple h2,
+.account-security h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.account-section-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-section-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #222;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.account-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+  padding-top: 23px;
+}
+
+.account-profile-grid span {
+  display: block;
+  margin-bottom: 7px;
+  color: #999;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.account-profile-grid strong {
+  display: block;
+  color: #111;
+  font-size: 13px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+/* =========================================
+   QUICK ACCESS
+========================================= */
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.account-action-card {
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #e2e2e2;
+  color: #111;
+  text-decoration: none;
+  background: #fff;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.account-action-card:hover {
+  border-color: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.account-action-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  color: #fff;
+}
+
+.account-action-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.account-action-content {
+  min-width: 0;
+}
+
+.account-action-content > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #888;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.account-action-content h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.account-action-content p {
+  margin: 8px 0 0;
+  color: #777;
+  font-size: 12px;
+}
+
+.account-arrow {
+  margin-left: auto;
+  color: #888;
+  font-size: 20px;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.account-action-card:hover .account-arrow {
+  color: #111;
+  transform: translateX(3px);
+}
+
+/* =========================================
+   RECENT ORDER
+========================================= */
+
+.account-recent-section {
+  margin-top: 18px;
+  border: 1px solid #e2e2e2;
+  padding: 25px;
+  background: #fff;
+}
+
+.account-section-heading-simple {
+  align-items: center;
+}
+
+.account-section-heading-simple a {
+  color: #222;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.account-section-heading-simple a:hover {
+  text-decoration: underline;
+}
+
+.account-recent-order {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 22px;
+}
+
+.account-recent-order > div > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #999;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+}
+
+.account-recent-order > div > strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.account-order-status {
+  text-transform: uppercase;
+}
+
+.status-pending {
+  color: #987b15;
+}
+
+.status-confirmed {
+  color: #32638d;
+}
+
+.status-processing {
+  color: #674cb0;
+}
+
+.status-shipped {
+  color: #34744b;
+}
+
+.status-delivered {
+  color: #267040;
+}
+
+.status-cancelled {
+  color: #a33c3c;
+}
+
+.account-recent-empty {
+  padding: 35px 10px 10px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+}
+
+.account-recent-empty p {
+  margin: 0 0 15px;
+}
+
+.account-recent-empty a {
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================
+   SECURITY
+========================================= */
+
+.account-security {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 25px;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+}
+
+.account-security p {
+  margin: 8px 0 0;
+  color: #777;
+  font-size: 12px;
+}
+
+.account-security button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border: 1px solid #111;
+  background: #fff;
+  color: #111;
+  padding: 11px 15px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.account-security button:hover {
+  background: #111;
+  color: #fff;
+}
+
+.account-security button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================
+   CONTINUE SHOPPING
+========================================= */
+
+.account-shopping-link {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.account-shopping-link a {
+  color: #444;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+}
+
+.account-shopping-link a:hover {
+  color: #111;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.account-loading {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 13px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+  .account-container {
+    padding: 45px 20px 70px;
+  }
+
+  .account-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .account-header h1 {
+    font-size: 31px;
+  }
+
+  .account-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-recent-order {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .account-security {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-container {
+    padding: 35px 15px 55px;
+  }
+
+  .account-header h1 {
+    font-size: 27px;
+  }
+
+  .account-profile-card,
+  .account-recent-section {
+    padding: 18px;
+  }
+
+  .account-recent-order {
+    grid-template-columns: 1fr;
+  }
+
+  .account-action-card {
+    min-height: 125px;
+    padding: 18px;
+  }
+}

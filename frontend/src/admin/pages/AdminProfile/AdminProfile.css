@@ -1,0 +1,323 @@
+.admin-profile-page {
+  min-height: 100vh;
+  background: #f6f7f9;
+}
+
+.admin-profile-content {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+}
+
+.admin-profile-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 32px 55px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.admin-profile-header p {
+  margin: 0 0 6px;
+  color: #8a8e94;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.admin-profile-header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+
+.admin-profile-header span {
+  display: block;
+  margin-top: 7px;
+  color: #7d8187;
+  font-size: 13px;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.profile-message {
+  margin-top: 20px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.profile-message.success {
+  border: 1px solid #cce6d3;
+  background: #f0faf3;
+  color: #338352;
+}
+
+.profile-message.error {
+  border: 1px solid #f0cccc;
+  background: #fff5f5;
+  color: #a84f4f;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.admin-profile-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 18px;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.admin-profile-card {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e7e9ec;
+  border-radius: 10px;
+}
+
+.password-card {
+  grid-column: 2;
+}
+
+/* =========================================
+   PROFILE SUMMARY
+========================================= */
+
+.profile-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eff0f2;
+}
+
+.profile-large-avatar {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #17191b;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.profile-card-top strong {
+  display: block;
+  color: #26292d;
+  font-size: 16px;
+}
+
+.profile-card-top span {
+  display: block;
+  margin-top: 5px;
+  color: #85898f;
+  font-size: 10px;
+}
+
+.profile-info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info-list > div {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.profile-info-list > div:last-child {
+  border-bottom: 0;
+}
+
+.profile-info-list span {
+  color: #90949a;
+  font-size: 10px;
+}
+
+.profile-info-list strong {
+  color: #36393e;
+  font-size: 12px;
+  word-break: break-word;
+}
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.profile-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #eff0f2;
+}
+
+.profile-section-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-size: 16px;
+}
+
+.profile-section-icon.purple {
+  background: #f0ebfb;
+  color: #7657d9;
+}
+
+.profile-section-icon.orange {
+  background: #fff3df;
+  color: #d18a22;
+}
+
+.profile-card-heading h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.profile-card-heading p {
+  margin: 5px 0 0;
+  color: #85898f;
+  font-size: 10px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.profile-form {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.profile-form label > span {
+  color: #555960;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.profile-form input {
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 1px solid #dfe2e5;
+  border-radius: 7px;
+  outline: none;
+  background: #fff;
+  color: #292c30;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.profile-form input:focus {
+  border-color: #aeb2b7;
+}
+
+.profile-save-button,
+.profile-password-button {
+  min-height: 43px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-save-button {
+  border: 1px solid #111;
+  background: #111;
+}
+
+.profile-save-button:hover {
+  background: #292929;
+}
+
+.profile-password-button {
+  border: 1px solid #d18a22;
+  background: #d18a22;
+}
+
+.profile-password-button:hover {
+  background: #ba7718;
+}
+
+.profile-save-button:disabled,
+.profile-password-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.admin-profile-loading {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #85898f;
+  font-size: 12px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .admin-profile-content {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  .admin-profile-main {
+    padding: 22px 16px 45px;
+  }
+
+  .admin-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .password-card {
+    grid-column: auto;
+  }
+}

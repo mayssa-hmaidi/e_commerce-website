@@ -1,0 +1,989 @@
+/* =========================================================
+   ADMIN NAVBAR
+========================================================= */
+
+.admin-navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 76px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 28px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #ececec;
+
+  z-index: 1000;
+}
+
+
+/* =========================================================
+   LEFT / SPACER
+========================================================= */
+
+.admin-navbar-spacer {
+  flex: 1;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
+
+.admin-menu-button {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #151515;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-menu-button:hover {
+  background: #f7f7f7;
+  border-color: #dcdcdc;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.admin-navbar-actions {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  z-index: 1100;
+}
+
+
+/* =========================================================
+   GENERIC ICON BUTTON
+========================================================= */
+
+.admin-navbar-icon-button {
+  position: relative;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  background: transparent;
+  color: #5f5f5f;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-navbar-icon-button:hover,
+.admin-navbar-icon-button.active {
+  background: #f5f5f5;
+  color: #151515;
+  border-color: #ededed;
+}
+
+
+/* =========================================================
+   NOTIFICATION BADGE
+========================================================= */
+
+.admin-notification-badge {
+  position: absolute;
+
+  top: 2px;
+  right: 1px;
+
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4px;
+
+  border-radius: 999px;
+
+  background: #e5484d;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DROPDOWN CONTAINER
+========================================================= */
+
+.admin-navbar-dropdown-container {
+  position: relative;
+  z-index: 1200;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+.admin-notification-dropdown {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  right: -8px;
+
+  width: 370px;
+  max-width: calc(100vw - 30px);
+
+  background: #ffffff;
+
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.14);
+
+  overflow: hidden;
+
+  z-index: 9999;
+}
+
+
+/* =========================================================
+   NOTIFICATION HEADER
+========================================================= */
+
+.admin-notification-header {
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 15px 18px;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.admin-notification-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-notification-header strong {
+  color: #171717;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-notification-header span {
+  color: #929292;
+
+  font-size: 11px;
+}
+
+.admin-notification-header > button {
+  border: none;
+
+  background: transparent;
+  color: #555555;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  padding: 5px 0;
+}
+
+.admin-notification-header > button:hover {
+  color: #111111;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.admin-notification-list {
+  max-height: 420px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+}
+
+
+/* =========================================================
+   NOTIFICATION ITEM
+========================================================= */
+
+.admin-notification-item {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border: none;
+  border-bottom: 1px solid #f1f1f1;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+.admin-notification-item:hover {
+  background: #f8f8f8;
+}
+
+.admin-notification-item:last-child {
+  border-bottom: none;
+}
+
+.admin-notification-item.unread {
+  background: #fbfbff;
+}
+
+
+/* =========================================================
+   NOTIFICATION ICON
+========================================================= */
+
+.admin-notification-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+}
+
+.admin-notification-icon.order {
+  background: #eef4ff;
+  color: #4285d4;
+}
+
+.admin-notification-icon.low-stock {
+  background: #fff6e6;
+  color: #d18a22;
+}
+
+.admin-notification-icon.out-of-stock {
+  background: #fff0f0;
+  color: #d84d4d;
+}
+
+
+/* =========================================================
+   NOTIFICATION CONTENT
+========================================================= */
+
+.admin-notification-content {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.admin-notification-content strong {
+  color: #181818;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  line-height: 1.4;
+}
+
+.admin-notification-content span {
+  color: #777777;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   UNREAD DOT
+========================================================= */
+
+.admin-notification-unread-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  margin-top: 6px;
+
+  border-radius: 50%;
+
+  background: #7657d9;
+}
+
+
+/* =========================================================
+   NOTIFICATION EMPTY STATE
+========================================================= */
+
+.admin-notification-empty {
+  min-height: 170px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 20px;
+
+  color: #969696;
+
+  text-align: center;
+}
+
+.admin-notification-empty i {
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+
+.admin-notification-empty strong {
+  color: #444444;
+
+  font-size: 13px;
+}
+
+.admin-notification-empty span {
+  color: #999999;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   NOTIFICATION FOOTER
+========================================================= */
+
+.admin-notification-footer {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 48px;
+
+  border: none;
+  border-top: 1px solid #eeeeee;
+
+  background: #ffffff;
+  color: #181818;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.admin-notification-footer:hover {
+  background: #f7f7f7;
+}
+
+.admin-notification-footer i {
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   PROFILE WRAPPER
+========================================================= */
+
+.admin-navbar-profile-wrapper {
+  position: relative;
+
+  z-index: 1300;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   PROFILE BUTTON
+========================================================= */
+
+.admin-navbar-profile {
+  position: relative;
+
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 5px 8px 5px 6px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  background: transparent;
+  color: #171717;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-navbar-profile:hover,
+.admin-navbar-profile.active {
+  background: #f7f7f7;
+  border-color: #ededed;
+}
+
+
+/* =========================================================
+   PROFILE AVATAR
+========================================================= */
+
+.admin-navbar-avatar {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #111111;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PROFILE USER INFO
+========================================================= */
+
+.admin-navbar-user {
+  min-width: 85px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 2px;
+}
+
+.admin-navbar-user strong {
+  max-width: 145px;
+
+  overflow: hidden;
+
+  color: #181818;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.admin-navbar-user span {
+  color: #969696;
+
+  font-size: 10px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   PROFILE CHEVRON
+========================================================= */
+
+.admin-profile-chevron {
+  margin-left: 3px;
+
+  color: #8f8f8f;
+
+  font-size: 11px;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.admin-navbar-profile:hover .admin-profile-chevron,
+.admin-navbar-profile.active .admin-profile-chevron {
+  color: #222222;
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.admin-profile-dropdown {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  right: 0;
+
+  width: 280px;
+
+  background: #ffffff;
+
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.15);
+
+  overflow: hidden;
+
+  z-index: 99999;
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN HEADER
+========================================================= */
+
+.admin-profile-dropdown-header {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 17px 18px;
+}
+
+.admin-profile-large-avatar {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #111111;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.admin-profile-dropdown-header > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.admin-profile-dropdown-header strong {
+  max-width: 180px;
+
+  overflow: hidden;
+
+  color: #171717;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.admin-profile-dropdown-header span {
+  color: #8f8f8f;
+
+  font-size: 10px;
+}
+
+.admin-profile-dropdown-header small {
+  max-width: 180px;
+
+  overflow: hidden;
+
+  color: #a0a0a0;
+
+  font-size: 10px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.admin-profile-divider {
+  width: 100%;
+  height: 1px;
+
+  background: #eeeeee;
+}
+
+
+/* =========================================================
+   PROFILE MENU ITEM
+========================================================= */
+
+.admin-profile-menu-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px 15px;
+
+  border: none;
+
+  background: transparent;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+.admin-profile-menu-item:hover {
+  background: #f8f8f8;
+}
+
+
+/* =========================================================
+   PROFILE MENU ICON
+========================================================= */
+
+.admin-profile-menu-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+}
+
+.admin-profile-menu-icon.profile {
+  background: #f1edff;
+  color: #7657d9;
+}
+
+.admin-profile-menu-icon.settings {
+  background: #eef4ff;
+  color: #4285d4;
+}
+
+
+/* =========================================================
+   PROFILE MENU TEXT
+========================================================= */
+
+.admin-profile-menu-item > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.admin-profile-menu-item strong {
+  color: #1d1d1d;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-profile-menu-item span {
+  color: #929292;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.admin-profile-logout {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px 16px;
+
+  border: none;
+
+  background: #ffffff;
+  color: #d84d4d;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+.admin-profile-logout:hover {
+  background: #fff5f5;
+}
+
+.admin-profile-logout i {
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   FOCUS STATES
+========================================================= */
+
+.admin-navbar-profile:focus-visible,
+.admin-navbar-icon-button:focus-visible,
+.admin-menu-button:focus-visible,
+.admin-notification-item:focus-visible,
+.admin-notification-footer:focus-visible,
+.admin-profile-menu-item:focus-visible,
+.admin-profile-logout:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   SCROLLBAR - NOTIFICATIONS
+========================================================= */
+
+.admin-notification-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-notification-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-notification-list::-webkit-scrollbar-thumb {
+  background: #d8d8d8;
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-navbar {
+    padding: 0 20px;
+  }
+
+  .admin-menu-button {
+    display: flex;
+  }
+
+  .admin-navbar-user {
+    min-width: 70px;
+  }
+
+  .admin-navbar-user strong {
+    max-width: 105px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .admin-navbar {
+    height: 68px;
+
+    padding: 0 14px;
+  }
+
+  .admin-menu-button {
+    display: flex;
+  }
+
+  .admin-navbar-actions {
+    gap: 7px;
+  }
+
+  .admin-navbar-profile {
+    min-height: 44px;
+
+    padding: 4px 5px 4px 4px;
+  }
+
+  .admin-navbar-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .admin-navbar-user {
+    display: none;
+  }
+
+  .admin-profile-chevron {
+    margin-left: 0;
+  }
+
+  .admin-notification-dropdown {
+    position: fixed;
+
+    top: 70px;
+    left: 12px;
+    right: 12px;
+
+    width: auto;
+    max-width: none;
+  }
+
+  .admin-profile-dropdown {
+    right: 0;
+
+    width: 260px;
+
+    max-width: calc(100vw - 24px);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .admin-navbar {
+    padding: 0 10px;
+  }
+
+  .admin-navbar-actions {
+    gap: 4px;
+  }
+
+  .admin-navbar-icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .admin-navbar-profile {
+    min-width: 40px;
+  }
+
+  .admin-navbar-avatar {
+    width: 34px;
+    height: 34px;
+
+    font-size: 13px;
+  }
+
+  .admin-profile-dropdown {
+    right: -3px;
+
+    width: 250px;
+  }
+}

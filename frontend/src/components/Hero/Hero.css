@@ -1,0 +1,134 @@
+.hero {
+  position: relative;
+  min-height: 650px;
+  overflow: hidden;
+  background: #e9e9e9;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.82) 31%,
+      rgba(255, 255, 255, 0.2) 61%,
+      rgba(255, 255, 255, 0) 100%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(520px, 48%);
+  padding-left: 8%;
+  padding-top: 120px;
+}
+
+.hero-label {
+  margin: 0 0 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.hero h1 {
+  max-width: 520px;
+  margin: 0;
+  font-size: clamp(58px, 7vw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  max-width: 330px;
+  margin: 28px 0 28px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 150px;
+  padding: 13px 18px;
+  box-sizing: border-box;
+  background: #050505;
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.hero-button svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.hero-button:hover {
+  transform: translateY(-2px);
+  background: #1a1a1a;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 560px;
+  }
+
+  .hero-content {
+    width: 55%;
+    padding-left: 6%;
+    padding-top: 90px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 620px;
+  }
+
+  .hero-image {
+    object-position: 65% center;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(255, 255, 255, 0.78) 55%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
+  }
+
+  .hero-content {
+    width: 82%;
+    padding-left: 7%;
+    padding-top: 80px;
+  }
+
+  .hero h1 {
+    font-size: 58px;
+  }
+}

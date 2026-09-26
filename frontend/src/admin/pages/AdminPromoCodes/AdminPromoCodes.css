@@ -1,0 +1,1243 @@
+.admin-promo-page {
+  min-height: 100vh;
+
+  background: #f6f7f9;
+
+  color: #151515;
+}
+
+/* =========================================
+   CONTENT SHELL
+========================================= */
+
+.admin-promo-content {
+  min-height: 100vh;
+
+  margin-left: 250px;
+
+  padding-top: 88px;
+
+  box-sizing: border-box;
+}
+
+.admin-promo-main {
+  width: 100%;
+
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding:
+    32px
+    34px
+    60px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.admin-promo-header {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 26px;
+}
+
+.admin-promo-heading {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.admin-promo-heading p {
+  margin: 0;
+
+  color: #858a92;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.admin-promo-heading h1 {
+  margin: 0;
+
+  color: #151515;
+
+  font-size: 31px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.025em;
+
+  line-height: 1.1;
+}
+
+.admin-promo-heading span {
+  margin-top: 3px;
+
+  color: #7c8087;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+/* =========================================
+   CREATE BUTTON
+========================================= */
+
+.admin-promo-create-button {
+  min-height: 43px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 9px;
+
+  padding:
+    0
+    16px;
+
+  border:
+    1px solid
+    #111;
+
+  border-radius: 9px;
+
+  background: #111;
+
+  color: #fff;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-promo-create-button:hover {
+  background: #242424;
+
+  border-color: #242424;
+
+  transform:
+    translateY(-1px);
+}
+
+.admin-promo-create-button i {
+  font-size: 12px;
+}
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.admin-promo-message {
+  min-height: 44px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+  padding:
+    0
+    13px;
+
+  border:
+    1px solid transparent;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+}
+
+.admin-promo-message.error {
+  background: #fff7f7;
+
+  border-color: #f1dede;
+
+  color: #b74a4a;
+}
+
+.admin-promo-message.success {
+  background: #f3faf5;
+
+  border-color: #dceee1;
+
+  color: #3e8855;
+}
+
+.admin-promo-message > i {
+  font-size: 14px;
+
+  flex-shrink: 0;
+}
+
+.admin-promo-message > span {
+  flex: 1;
+}
+
+.admin-promo-message button {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: currentColor;
+
+  cursor: pointer;
+
+  border-radius: 6px;
+}
+
+.admin-promo-message button:hover {
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+}
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.admin-promo-card {
+  overflow: hidden;
+
+  background: #fff;
+
+  border:
+    1px solid
+    #e3e5e8;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 1px 2px
+    rgba(
+      0,
+      0,
+      0,
+      0.02
+    );
+}
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.admin-promo-card-header {
+  min-height: 79px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding:
+    0
+    21px;
+
+  border-bottom:
+    1px solid
+    #eceef0;
+}
+
+.admin-promo-card-header > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.admin-promo-card-header > div > span {
+  color: #969aa1;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.admin-promo-card-header h2 {
+  margin: 0;
+
+  color: #1b1b1b;
+
+  font-size: 16px;
+
+  font-weight: 650;
+}
+
+.admin-promo-count {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 28px;
+
+  padding:
+    0
+    10px;
+
+  border-radius: 999px;
+
+  background: #f5f6f7;
+
+  color: #777c84;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* =========================================
+   TABLE WRAPPER
+========================================= */
+
+.admin-promo-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.admin-promo-table {
+  width: 100%;
+
+  min-width: 1080px;
+
+  border-collapse: collapse;
+
+  table-layout: auto;
+}
+
+.admin-promo-table th {
+  padding:
+    14px
+    19px;
+
+  background: #fafbfc;
+
+  border-bottom:
+    1px solid
+    #eceef0;
+
+  color: #858a91;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  text-align: left;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.admin-promo-table td {
+  padding:
+    17px
+    19px;
+
+  border-bottom:
+    1px solid
+    #f0f1f3;
+
+  color: #5e636b;
+
+  font-size: 11px;
+
+  vertical-align: middle;
+
+  white-space: nowrap;
+}
+
+.admin-promo-table tbody tr {
+  transition:
+    background 0.15s ease;
+}
+
+.admin-promo-table tbody tr:hover {
+  background: #fcfcfd;
+}
+
+.admin-promo-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================
+   CODE CELL
+========================================= */
+
+.promo-code-cell {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.promo-code-name {
+  color: #171717;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.035em;
+}
+
+.promo-code-cell > span {
+  color: #9a9ea5;
+
+  font-size: 9px;
+}
+
+/* =========================================
+   VALUE
+========================================= */
+
+.promo-value {
+  color: #181818;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   USAGE
+========================================= */
+
+.promo-usage {
+  min-width: 76px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.promo-usage > span {
+  color: #555a62;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.promo-usage-bar {
+  width: 66px;
+
+  height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #eceef1;
+}
+
+.promo-usage-bar > span {
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: #111;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.promo-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-height: 26px;
+
+  padding:
+    0
+    9px;
+
+  border-radius: 999px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+.promo-status.active {
+  background: #edf8f0;
+
+  color: #398153;
+}
+
+.promo-status.inactive {
+  background: #f3f4f5;
+
+  color: #878b91;
+}
+
+.promo-status-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.promo-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.promo-action {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.promo-action:hover {
+  transform:
+    translateY(-1px);
+
+  filter:
+    brightness(0.98);
+}
+
+.promo-action.edit {
+  background: #f2efff;
+
+  color: #7256d4;
+}
+
+.promo-action.toggle {
+  background: #eef5ff;
+
+  color: #4280cb;
+}
+
+.promo-action.delete {
+  background: #fff1f1;
+
+  color: #d14c4c;
+}
+
+/* =========================================
+   STATE
+========================================= */
+
+.admin-promo-state {
+  min-height: 340px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  color: #999ea5;
+}
+
+.admin-promo-state > i {
+  margin-bottom: 7px;
+
+  font-size: 25px;
+
+  color: #8e939a;
+}
+
+.admin-promo-state strong {
+  color: #4d5259;
+
+  font-size: 13px;
+
+  font-weight: 650;
+}
+
+.admin-promo-state span {
+  color: #9a9ea4;
+
+  font-size: 11px;
+}
+
+/* =========================================
+   EMPTY ICON
+========================================= */
+
+.admin-promo-empty-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 5px;
+
+  border-radius: 12px;
+
+  background: #f5f6f8;
+
+  color: #7f838a;
+
+  font-size: 20px;
+}
+
+.admin-promo-state button {
+  margin-top: 10px;
+
+  height: 36px;
+
+  padding:
+    0
+    15px;
+
+  border: 1px solid #111;
+
+  border-radius: 8px;
+
+  background: #111;
+
+  color: #fff;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.07em;
+
+  cursor: pointer;
+}
+
+.admin-promo-state button:hover {
+  background: #262626;
+}
+
+/* =========================================
+   MODAL BACKDROP
+========================================= */
+
+.admin-promo-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 10000;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(
+      15,
+      15,
+      15,
+      0.48
+    );
+
+  backdrop-filter:
+    blur(2px);
+}
+
+/* =========================================
+   MODAL
+========================================= */
+
+.admin-promo-modal {
+  width: 100%;
+
+  max-width: 640px;
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  background: #fff;
+
+  border:
+    1px solid
+    #e5e5e5;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 24px 70px
+    rgba(
+      0,
+      0,
+      0,
+      0.22
+    );
+
+  animation:
+    promo-modal-in
+    0.18s ease;
+}
+
+@keyframes promo-modal-in {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(8px)
+      scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* =========================================
+   MODAL HEADER
+========================================= */
+
+.admin-promo-modal-header {
+  min-height: 76px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    0
+    21px;
+
+  border-bottom:
+    1px solid
+    #ececec;
+}
+
+.admin-promo-modal-header > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.admin-promo-modal-header span {
+  color: #989ba1;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.admin-promo-modal-header h2 {
+  margin: 0;
+
+  color: #181818;
+
+  font-size: 17px;
+
+  font-weight: 650;
+}
+
+.admin-promo-modal-close {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #f4f5f6;
+
+  color: #555b62;
+
+  cursor: pointer;
+}
+
+.admin-promo-modal-close:hover {
+  background: #ebedef;
+}
+
+.admin-promo-modal-close:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.admin-promo-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+
+  padding: 21px;
+}
+
+.admin-promo-form label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.admin-promo-form label > span {
+  color: #4d5157;
+
+  font-size: 10px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.admin-promo-form input,
+.admin-promo-form select {
+  width: 100%;
+
+  height: 42px;
+
+  box-sizing: border-box;
+
+  padding:
+    0
+    12px;
+
+  border:
+    1px solid
+    #dadde1;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #fff;
+
+  color: #181818;
+
+  font-size: 11px;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.admin-promo-form input::placeholder {
+  color: #b3b6bb;
+}
+
+.admin-promo-form input:focus,
+.admin-promo-form select:focus {
+  border-color: #151515;
+
+  box-shadow:
+    0 0 0
+    2px
+    rgba(
+      0,
+      0,
+      0,
+      0.04
+    );
+}
+
+/* =========================================
+   INPUT WITH SUFFIX
+========================================= */
+
+.admin-promo-input-with-suffix {
+  position: relative;
+}
+
+.admin-promo-input-with-suffix input {
+  padding-right: 43px;
+}
+
+.admin-promo-input-with-suffix > span {
+  position: absolute;
+
+  top: 50%;
+  right: 12px;
+
+  transform:
+    translateY(-50%);
+
+  color: #92969d;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   FORM GRID
+========================================= */
+
+.admin-promo-form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 13px;
+}
+
+/* =========================================
+   CHECKBOX
+========================================= */
+
+.admin-promo-checkbox {
+  display: flex !important;
+
+  flex-direction: row !important;
+
+  align-items: center;
+
+  gap: 9px !important;
+
+  padding:
+    2px
+    0;
+}
+
+.admin-promo-checkbox input {
+  width: 16px;
+  height: 16px;
+
+  margin: 0;
+
+  accent-color: #111;
+
+  cursor: pointer;
+}
+
+.admin-promo-checkbox span {
+  color: #454a50 !important;
+
+  font-size: 10px !important;
+
+  font-weight: 600 !important;
+}
+
+/* =========================================
+   FORM ACTIONS
+========================================= */
+
+.admin-promo-form-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 8px;
+
+  padding-top: 4px;
+}
+
+.admin-promo-cancel-button,
+.admin-promo-save-button {
+  min-height: 41px;
+
+  padding:
+    0
+    16px;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.admin-promo-cancel-button {
+  border:
+    1px solid
+    #dadddf;
+
+  background: #fff;
+
+  color: #565b62;
+}
+
+.admin-promo-cancel-button:hover {
+  background: #f7f7f8;
+}
+
+.admin-promo-save-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  border:
+    1px solid
+    #111;
+
+  background: #111;
+
+  color: #fff;
+}
+
+.admin-promo-save-button:hover {
+  background: #252525;
+
+  border-color: #252525;
+}
+
+.admin-promo-cancel-button:disabled,
+.admin-promo-save-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .admin-promo-content {
+    margin-left: 250px;
+  }
+
+  .admin-promo-main {
+    padding:
+      28px
+      24px
+      50px;
+  }
+
+  .admin-promo-table {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-promo-content {
+    margin-left: 0;
+
+    padding-top: 72px;
+  }
+
+  .admin-promo-main {
+    padding:
+      24px
+      18px
+      45px;
+  }
+
+  .admin-promo-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .admin-promo-create-button {
+    width: 100%;
+  }
+
+  .admin-promo-table {
+    min-width: 950px;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-promo-main {
+    padding:
+      18px
+      12px
+      35px;
+  }
+
+  .admin-promo-heading h1 {
+    font-size: 26px;
+  }
+
+  .admin-promo-card-header {
+    padding:
+      0
+      15px;
+  }
+
+  .admin-promo-table th {
+    padding:
+      12px
+      14px;
+  }
+
+  .admin-promo-table td {
+    padding:
+      14px;
+    }
+
+  .admin-promo-form {
+    padding: 17px;
+  }
+
+  .admin-promo-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-promo-modal-backdrop {
+    align-items: flex-start;
+
+    padding:
+      10px;
+  }
+
+  .admin-promo-modal {
+    margin-top: 10px;
+
+    max-height:
+      calc(100vh - 20px);
+  }
+
+  .admin-promo-form-actions {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+
+  .admin-promo-cancel-button,
+  .admin-promo-save-button {
+    width: 100%;
+  }
+}

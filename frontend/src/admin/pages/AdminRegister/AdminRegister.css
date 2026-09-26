@@ -1,0 +1,99 @@
+.admin-register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #f8f8f8;
+}
+
+.admin-register-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 3rem;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.admin-register-label {
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+}
+
+.admin-register-card h1 {
+  margin-bottom: 0.75rem;
+  font-size: 2.5rem;
+}
+
+.admin-register-description {
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.admin-form-group input {
+  padding: 0.9rem 1rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.admin-form-group input:focus {
+  border-color: #000;
+}
+
+.admin-register-button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-register-button:hover {
+  opacity: 0.9;
+}
+
+.admin-register-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-register-error {
+  margin-bottom: 1rem;
+  color: #c00;
+  font-size: 0.9rem;
+}
+
+.admin-register-success {
+  margin-bottom: 1rem;
+  color: #187a37;
+  font-size: 0.9rem;
+}
+
+.admin-register-login {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.admin-register-login a {
+  color: #000;
+  font-weight: 600;
+}

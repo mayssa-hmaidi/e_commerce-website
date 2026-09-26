@@ -1,0 +1,298 @@
+.product-card {
+  width: 100%;
+}
+
+.product-card-image {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  isolation: isolate;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.product-card-image:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.product-card-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 40%,
+    rgba(0, 0, 0, 0.68) 100%
+  );
+}
+
+/* =========================================
+   FAVORITE
+========================================= */
+
+.product-favorite {
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
+
+  z-index: 3;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+
+  color: #111;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.product-favorite:hover {
+  transform: scale(1.08);
+
+  background: #fff;
+}
+
+.product-favorite:disabled {
+  cursor: default;
+}
+
+.product-favorite.updating {
+  opacity: 0.55;
+}
+
+.product-favorite svg {
+  width: 18px;
+  height: 18px;
+
+  fill: transparent;
+
+  stroke: currentColor;
+
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  transition:
+    fill 0.2s ease;
+}
+
+.product-favorite.active svg {
+  fill: currentColor;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.product-card-content {
+  position: absolute;
+
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  color: #fff;
+}
+
+.product-card-content h3 {
+  margin: 0 0 7px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 1.25;
+}
+
+.product-card-price {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.product-card-price-current {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.product-card-price-old {
+  color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  );
+
+  font-size: 11px;
+
+  text-decoration: line-through;
+}
+
+/* =========================================
+   VIEW
+========================================= */
+
+.product-view-button {
+  flex-shrink: 0;
+
+  padding-bottom: 4px;
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+
+  border-bottom: 1px solid #fff;
+
+  transition:
+    opacity 0.2s ease;
+}
+
+.product-view-button:hover {
+  opacity: 0.65;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.wishlist-toast {
+  position: fixed;
+
+  top: 105px;
+  left: 50%;
+
+  z-index: 9999;
+
+  transform:
+    translateX(-50%);
+
+  padding: 12px 20px;
+
+  background: #111;
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.06em;
+
+  box-shadow:
+    0 8px 25px
+    rgba(
+      0,
+      0,
+      0,
+      0.18
+    );
+
+  pointer-events: none;
+
+  animation:
+    wishlist-toast-in
+    0.2s ease;
+}
+
+@keyframes wishlist-toast-in {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-card-content {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .product-card-content h3 {
+    font-size: 14px;
+  }
+
+  .product-favorite {
+    top: 12px;
+    right: 12px;
+
+    width: 32px;
+    height: 32px;
+  }
+
+  .product-favorite svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .wishlist-toast {
+    top: 88px;
+
+    width: max-content;
+    max-width:
+      calc(100vw - 30px);
+
+    text-align: center;
+  }
+}

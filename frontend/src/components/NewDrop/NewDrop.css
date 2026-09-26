@@ -1,0 +1,82 @@
+.new-drop {
+  padding: 70px 5%;
+  background: #fff;
+}
+
+.new-drop-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.new-drop-label {
+  margin: 0 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #888;
+}
+
+.new-drop-header h2 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.new-drop-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #111;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.new-drop-header a span {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.new-drop-header a:hover span {
+  transform: translateX(4px);
+}
+
+.new-drop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.new-drop-empty {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  color: #777;
+  font-size: 14px;
+}
+
+@media (max-width: 1000px) {
+  .new-drop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .new-drop {
+    padding: 50px 20px;
+  }
+
+  .new-drop-header h2 {
+    font-size: 32px;
+  }
+
+  .new-drop-grid {
+    grid-template-columns: 1fr;
+  }
+}

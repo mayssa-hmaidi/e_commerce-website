@@ -1,0 +1,362 @@
+.register-page {
+  min-height: 100vh;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  background: #fff;
+
+  color: #111;
+}
+
+/* =================================
+   VISUAL
+================================= */
+
+.register-visual {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  padding: 60px;
+
+  box-sizing: border-box;
+
+  background: #111;
+
+  color: #fff;
+}
+
+.register-visual-content {
+  max-width: 420px;
+}
+
+.register-visual-content > span {
+  display: block;
+
+  margin-bottom: 25px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.register-visual-content h1 {
+  margin: 0 0 20px;
+
+  font-size: clamp(
+    48px,
+    7vw,
+    88px
+  );
+
+  line-height: 0.87;
+
+  letter-spacing: -0.06em;
+
+  font-weight: 800;
+}
+
+.register-visual-content p {
+  max-width: 310px;
+
+  margin: 0;
+
+  color: #aaa;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+/* =================================
+   CONTENT
+================================= */
+
+.register-content {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 40px 30px;
+
+  box-sizing: border-box;
+}
+
+.register-card {
+  width: min(
+    390px,
+    100%
+  );
+}
+
+/* =================================
+   BRAND
+================================= */
+
+.register-brand {
+  display: inline-block;
+
+  margin-bottom: 55px;
+
+  color: #111;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.03em;
+
+  text-decoration: none;
+}
+
+/* =================================
+   HEADING
+================================= */
+
+.register-heading {
+  margin-bottom: 25px;
+}
+
+.register-heading p {
+  margin: 0 0 7px;
+
+  color: #888;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.register-heading h1 {
+  margin: 0 0 9px;
+
+  font-size: 38px;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.05em;
+
+  font-weight: 800;
+}
+
+.register-heading span {
+  color: #777;
+
+  font-size: 11px;
+}
+
+/* =================================
+   ERROR
+================================= */
+
+.register-error {
+  margin-bottom: 15px;
+
+  padding: 11px 12px;
+
+  border: 1px solid #e3c8c8;
+
+  background: #faf3f3;
+
+  color: #a33;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+/* =================================
+   FORM
+================================= */
+
+.register-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 13px;
+}
+
+.register-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.register-field label {
+  color: #444;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+}
+
+.register-field input {
+  width: 100%;
+
+  min-height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 13px;
+
+  border: 1px solid #d8d8d8;
+
+  background: #fff;
+
+  color: #111;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease;
+}
+
+.register-field input:focus {
+  border-color: #111;
+}
+
+/* =================================
+   BUTTON
+================================= */
+
+.register-button {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 5px;
+
+  border: 1px solid #111;
+
+  background: #111;
+
+  color: #fff;
+
+  font-family: inherit;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.register-button:hover:not(
+    :disabled
+  ) {
+  background: #fff;
+
+  color: #111;
+}
+
+.register-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =================================
+   LOGIN
+================================= */
+
+.register-login {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 20px;
+
+  color: #777;
+
+  font-size: 10px;
+}
+
+.register-login a {
+  color: #111;
+
+  font-weight: 700;
+
+  text-decoration: underline;
+}
+
+/* =================================
+   BACK
+================================= */
+
+.register-back {
+  display: block;
+
+  margin-top: 35px;
+
+  color: #777;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  text-decoration: none;
+
+  letter-spacing: 0.05em;
+}
+
+.register-back:hover {
+  color: #111;
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 800px) {
+  .register-page {
+    grid-template-columns: 1fr;
+  }
+
+  .register-visual {
+    display: none;
+  }
+
+  .register-content {
+    min-height: 100vh;
+
+    padding: 30px 20px;
+  }
+
+  .register-brand {
+    margin-bottom: 45px;
+  }
+}
