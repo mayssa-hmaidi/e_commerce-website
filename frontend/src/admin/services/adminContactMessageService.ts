@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api";
 
 export type AdminContactMessage = {
   _id: string;
@@ -12,16 +14,9 @@ export type AdminContactMessage = {
   updatedAt: string;
 };
 
-const getAdminToken = () => {
-  return localStorage.getItem("adminToken");
-};
-
 const getAuthHeaders = () => {
-  const token = getAdminToken();
-
   return {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token || ""}`,
   };
 };
 

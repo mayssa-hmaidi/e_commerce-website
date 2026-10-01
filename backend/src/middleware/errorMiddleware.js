@@ -1,9 +1,22 @@
 const errorHandler = (err, req, res, next) => {
-  console.error(err);
+  console.error("Request failed:", err);
 
-  res.status(500).json({
-    message: "Something went wrong",
-    error: err.message,
+  const statusCode = Number.isInteger(err.statusCode)
+    ? err.statusCode
+    : err.name === "ValidationError"
+      ? 422
+      : err.name === "CastError"
+        ? 400
+        : 500;
+
+  const message = process.env.NODE_ENV === "production"
+    ? statusCode === 503
+      ? "Service temporarily unavailable."
+      : "Something went wrong."
+    : err.message || "Something went wrong.";
+
+  res.status(statusCode).json({
+    message,
   });
 };
 

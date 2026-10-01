@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/promo-codes";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/promo-codes";
 
 export type PromoCodeType =
   | "percentage"
@@ -32,21 +33,9 @@ export type PromoCodePayload = {
 };
 
 const getHeaders = (): HeadersInit => {
-  const token =
-    localStorage.getItem(
-      "adminToken",
-    );
-
   return {
     "Content-Type":
       "application/json",
-
-    ...(token
-      ? {
-          Authorization:
-            `Bearer ${token}`,
-        }
-      : {}),
   };
 };
 

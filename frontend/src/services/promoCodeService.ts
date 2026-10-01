@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/promo-codes";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/promo-codes";
 
 export type PromoValidationResult = {
   valid: boolean;

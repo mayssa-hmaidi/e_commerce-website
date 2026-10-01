@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { logoutAdmin } from "../../services/adminService";
 
 import "./AdminSidebar.css";
 
@@ -72,9 +73,8 @@ const navigationItems = [
 function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("admin");
+  const handleLogout = async () => {
+    await logoutAdmin();
     localStorage.removeItem("adminReadNotifications");
 
     navigate("/admin/login");

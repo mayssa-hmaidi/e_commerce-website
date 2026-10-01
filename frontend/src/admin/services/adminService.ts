@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/admin";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/admin";
 
 type LoginData = {
   email: string;
@@ -7,7 +9,6 @@ type LoginData = {
 
 type LoginResponse = {
   message: string;
-  token: string;
   admin: {
     id: string;
     name: string;
@@ -74,4 +75,9 @@ export const resetAdminPassword = async (
   }
 
   return data;
+};
+
+export const logoutAdmin = async (): Promise<void> => {
+  await fetch(`${API_URL}/logout`, { method: "POST" }).catch(() => undefined);
+  localStorage.removeItem("admin");
 };

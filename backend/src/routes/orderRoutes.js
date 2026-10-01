@@ -19,7 +19,7 @@ router.post("/", customerProtect, createOrder);
 router.get("/my-orders", customerProtect, getCustomerOrders);
 
 // Public tracking
-router.get("/track/:id", getOrderForTracking);
+router.get("/track/:id", customerProtect, getOrderForTracking);
 
 // Admin
 router.get("/", protect, getOrders);

@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/newsletter/admin";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/newsletter/admin";
 
 export type AdminNewsletterSubscriber = {
   _id: string;
@@ -12,11 +14,6 @@ export type AdminNewsletterSubscriber = {
 export type AdminNewsletterData = {
   activeCount: number;
   subscribers: AdminNewsletterSubscriber[];
-};
-
-const getHeaders = (): HeadersInit => {
-  const token = localStorage.getItem("adminToken");
-  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 const parseResponse = async <T,>(response: Response): Promise<T> => {
@@ -34,14 +31,13 @@ const parseResponse = async <T,>(response: Response): Promise<T> => {
 };
 
 export const getAdminNewsletterSubscribers = async () => {
-  const response = await fetch(API_URL, { headers: getHeaders() });
+  const response = await fetch(API_URL);
   return parseResponse<AdminNewsletterData>(response);
 };
 
 export const unsubscribeAdminNewsletterSubscriber = async (id: string) => {
   const response = await fetch(`${API_URL}/${id}/unsubscribe`, {
     method: "PATCH",
-    headers: getHeaders(),
   });
   return parseResponse<{ message: string }>(response);
 };
@@ -49,7 +45,6 @@ export const unsubscribeAdminNewsletterSubscriber = async (id: string) => {
 export const deleteAdminNewsletterSubscriber = async (id: string) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
-    headers: getHeaders(),
   });
   return parseResponse<{ message: string }>(response);
 };

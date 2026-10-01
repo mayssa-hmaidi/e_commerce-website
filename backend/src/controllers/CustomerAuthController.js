@@ -2,6 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Customer = require("../models/Customer");
+const { clearAuthCookie, setAuthCookie } = require("../utils/authCookies");
+
+const CUSTOMER_COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
 // =========================================
 // GENERATE CUSTOMER TOKEN
@@ -131,6 +134,8 @@ const registerCustomer = async (
         customer,
       );
 
+    setAuthCookie(res, "customerToken", token, CUSTOMER_COOKIE_MAX_AGE);
+
     // =====================================
     // RESPONSE
     // =====================================
@@ -138,8 +143,6 @@ const registerCustomer = async (
     return res.status(201).json({
       message:
         "Account created successfully.",
-
-      token,
 
       customer: {
         _id:
@@ -253,6 +256,8 @@ const loginCustomer = async (
         customer,
       );
 
+    setAuthCookie(res, "customerToken", token, CUSTOMER_COOKIE_MAX_AGE);
+
     // =====================================
     // RESPONSE
     // =====================================
@@ -260,8 +265,6 @@ const loginCustomer = async (
     return res.status(200).json({
       message:
         "Login successful.",
-
-      token,
 
       customer: {
         _id:
@@ -341,8 +344,14 @@ const getCurrentCustomer =
     }
   };
 
+const logoutCustomer = (req, res) => {
+  clearAuthCookie(res, "customerToken");
+  return res.status(200).json({ message: "Logged out successfully." });
+};
+
 module.exports = {
   registerCustomer,
   loginCustomer,
+  logoutCustomer,
   getCurrentCustomer,
 };

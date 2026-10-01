@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { getAuthToken } = require("../utils/authCookies");
 
 const customerProtect = (
   req,
@@ -6,27 +7,7 @@ const customerProtect = (
   next,
 ) => {
   try {
-    const authHeader =
-      req.headers.authorization;
-
-    // =====================================
-    // CHECK TOKEN
-    // =====================================
-
-    if (
-      !authHeader ||
-      !authHeader.startsWith(
-        "Bearer ",
-      )
-    ) {
-      return res.status(401).json({
-        message:
-          "Customer authentication required.",
-      });
-    }
-
-    const token =
-      authHeader.split(" ")[1];
+    const token = getAuthToken(req, "customerToken");
 
     if (!token) {
       return res.status(401).json({
@@ -68,10 +49,7 @@ const customerProtect = (
 
     next();
   } catch (error) {
-    console.error(
-      "Customer auth middleware error:",
-      error,
-    );
+    console.error("Customer authentication failed:", error.name);
 
     return res.status(401).json({
       message:

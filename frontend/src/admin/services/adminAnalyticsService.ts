@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/analytics";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/analytics";
 
 export type AnalyticsTimelineItem = {
   key: string;
@@ -40,24 +41,8 @@ export type AnalyticsOverview = {
 export const getAnalyticsOverview = async (
   period: "7d" | "30d" | "12m" = "30d",
 ): Promise<AnalyticsOverview> => {
-  const token =
-    localStorage.getItem("adminToken");
-
-  if (!token) {
-    throw new Error(
-      "Admin authentication required.",
-    );
-  }
-
   const response = await fetch(
     `${API_URL}/overview?period=${period}`,
-    {
-      method: "GET",
-
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
   );
 
   const data = await response.json();

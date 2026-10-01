@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/orders";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/orders";
 
 // =========================================
 // TRACKING ITEM

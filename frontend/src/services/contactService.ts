@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api";
 const CONTACT_MESSAGES_URL = `${API_URL}/contact-messages`;
 
 export type ContactMessagePayload = {

@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/contact-messages";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/contact-messages";
 
 export type AdminContactMessage = {
   _id: string;
@@ -11,10 +13,6 @@ export type AdminContactMessage = {
   createdAt: string;
   updatedAt: string;
 };
-
-function getAdminToken() {
-  return localStorage.getItem("adminToken");
-}
 
 async function parseResponse(response: Response) {
   const data = await response.json().catch(() => ({}));
@@ -35,18 +33,7 @@ async function parseResponse(response: Response) {
 export async function getAdminContactMessages(): Promise<
   AdminContactMessage[]
 > {
-  const token = getAdminToken();
-
-  if (!token) {
-    throw new Error("Admin authentication required.");
-  }
-
-  const response = await fetch(API_URL, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    const response = await fetch(API_URL);
 
   const data = await parseResponse(response);
 
@@ -60,18 +47,7 @@ export async function getAdminContactMessages(): Promise<
 export async function getAdminContactMessageById(
   id: string,
 ): Promise<AdminContactMessage> {
-  const token = getAdminToken();
-
-  if (!token) {
-    throw new Error("Admin authentication required.");
-  }
-
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(`${API_URL}/${id}`);
 
   return parseResponse(response);
 }
@@ -83,19 +59,10 @@ export async function getAdminContactMessageById(
 export async function markAdminContactMessageAsRead(
   id: string,
 ): Promise<AdminContactMessage> {
-  const token = getAdminToken();
-
-  if (!token) {
-    throw new Error("Admin authentication required.");
-  }
-
   const response = await fetch(
     `${API_URL}/${id}/read`,
     {
       method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     },
   );
 
@@ -111,17 +78,8 @@ export async function markAdminContactMessageAsRead(
 export async function deleteAdminContactMessage(
   id: string,
 ): Promise<void> {
-  const token = getAdminToken();
-
-  if (!token) {
-    throw new Error("Admin authentication required.");
-  }
-
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 
   await parseResponse(response);

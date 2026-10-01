@@ -3,6 +3,7 @@ const express = require("express");
 const {
   registerCustomer,
   loginCustomer,
+  logoutCustomer,
   getCurrentCustomer,
 } = require("../controllers/CustomerAuthController");
 const {
@@ -13,6 +14,7 @@ const {
 const customerProtect = require(
   "../middleware/customerAuthMiddleware",
 );
+const authRateLimit = require("../middleware/authRateLimit");
 
 const router = express.Router();
 
@@ -22,21 +24,27 @@ const router = express.Router();
 
 router.post(
   "/register",
+  authRateLimit,
   registerCustomer,
 );
 
 router.post(
   "/login",
+  authRateLimit,
   loginCustomer,
 );
 
+router.post("/logout", logoutCustomer);
+
 router.post(
   "/forgot-password",
+  authRateLimit,
   requestCustomerPasswordReset,
 );
 
 router.post(
   "/reset-password",
+  authRateLimit,
   resetCustomerPassword,
 );
 

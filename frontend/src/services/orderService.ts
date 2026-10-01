@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/orders";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/orders";
 
 // =========================================
 // CUSTOMER TYPES
@@ -77,34 +79,17 @@ export type CreatedOrderResponse = {
 };
 
 // =========================================
-// CUSTOMER TOKEN
-// =========================================
-
-const getCustomerToken = (): string | null => {
-  return localStorage.getItem("customerToken");
-};
-
-// =========================================
 // CREATE ORDER
 // =========================================
 
 export const createOrder = async (
   orderData: CreateOrderPayload
 ): Promise<CustomerOrder> => {
-  const token = getCustomerToken();
-
-  if (!token) {
-    throw new Error(
-      "You must be logged in to place an order."
-    );
-  }
-
   const response = await fetch(API_URL, {
     method: "POST",
 
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
 
     body: JSON.stringify(orderData),
@@ -128,22 +113,10 @@ export const createOrder = async (
 
 export const getCustomerOrders =
   async (): Promise<CustomerOrder[]> => {
-    const token = getCustomerToken();
-
-    if (!token) {
-      throw new Error(
-        "You must be logged in to view your orders."
-      );
-    }
-
     const response = await fetch(
       `${API_URL}/my-orders`,
       {
         method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }
     );
 
@@ -211,34 +184,12 @@ export type AdminOrder = {
 };
 
 // =========================================
-// ADMIN TOKEN
-// =========================================
-
-const getAdminToken = (): string | null => {
-  return localStorage.getItem("adminToken");
-};
-
-// =========================================
 // GET ALL ADMIN ORDERS
 // =========================================
 
 export const getAdminOrders =
   async (): Promise<AdminOrder[]> => {
-    const token = getAdminToken();
-
-    if (!token) {
-      throw new Error(
-        "Admin authentication required."
-      );
-    }
-
-    const response = await fetch(API_URL, {
-      method: "GET",
-
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(API_URL);
 
     const data = await response.json();
 
@@ -260,24 +211,7 @@ export const getAdminOrderById =
   async (
     orderId: string
   ): Promise<AdminOrder> => {
-    const token = getAdminToken();
-
-    if (!token) {
-      throw new Error(
-        "Admin authentication required."
-      );
-    }
-
-    const response = await fetch(
-      `${API_URL}/${orderId}`,
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/${orderId}`);
 
     const data = await response.json();
 
@@ -300,14 +234,6 @@ export const updateAdminOrderStatus =
     orderId: string,
     status: AdminOrder["status"]
   ): Promise<AdminOrder> => {
-    const token = getAdminToken();
-
-    if (!token) {
-      throw new Error(
-        "Admin authentication required."
-      );
-    }
-
     const response = await fetch(
       `${API_URL}/${orderId}/status`,
       {
@@ -315,7 +241,6 @@ export const updateAdminOrderStatus =
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
 
         body: JSON.stringify({

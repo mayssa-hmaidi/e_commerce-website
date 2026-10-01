@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "";
 
 type AdminFetchOptions = RequestInit & {
   redirectOnUnauthorized?: boolean;
@@ -8,16 +10,10 @@ export const adminFetch = async (
   path: string,
   options: AdminFetchOptions = {}
 ): Promise<Response> => {
-  const token = localStorage.getItem("adminToken");
-
   const headers = new Headers(options.headers);
 
   if (options.body && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
-  }
-
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
   }
 
   const response = await fetch(`${API_URL}${path}`, {
@@ -26,7 +22,6 @@ export const adminFetch = async (
   });
 
   if (response.status === 401) {
-    localStorage.removeItem("adminToken");
     localStorage.removeItem("admin");
 
     if (options.redirectOnUnauthorized !== false) {

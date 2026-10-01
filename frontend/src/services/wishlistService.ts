@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/wishlist";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/wishlist";
 
 // =========================================
 // TYPES
@@ -23,33 +24,8 @@ export type WishlistResponse = {
   products: WishlistProduct[];
 };
 
-// =========================================
-// TOKEN
-// =========================================
-
-const getCustomerToken = (): string | null => {
-  return localStorage.getItem(
-    "customerToken"
-  );
-};
-
-// =========================================
-// AUTH HEADER
-// =========================================
-
 const getHeaders = () => {
-  const token = getCustomerToken();
-
-  if (!token) {
-    throw new Error(
-      "You must be logged in."
-    );
-  }
-
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
+  return { "Content-Type": "application/json" };
 };
 
 // =========================================

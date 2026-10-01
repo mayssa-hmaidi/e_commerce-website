@@ -13,6 +13,9 @@ const {
   hasUsageAvailable,
 } = require("./PromoCodeController");
 
+const createOrderValidationError = (message) =>
+  Object.assign(new Error(message), { statusCode: 400 });
+
 // =========================================
 // GENERATE ORDER NUMBER
 // =========================================
@@ -142,7 +145,7 @@ const createOrder = async (req, res) => {
         ) ||
         Number(item.quantity) < 1
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           "Invalid order item."
         );
       }
@@ -152,7 +155,7 @@ const createOrder = async (req, res) => {
           item.productId
         )
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           "Invalid product ID."
         );
       }
@@ -163,7 +166,7 @@ const createOrder = async (req, res) => {
         );
 
       if (!product) {
-        throw new Error(
+        throw createOrderValidationError(
           `Product "${
             item.name || "Unknown"
           }" no longer exists.`
@@ -174,7 +177,7 @@ const createOrder = async (req, res) => {
         Number(item.quantity);
 
       if (product.stock < quantity) {
-        throw new Error(
+        throw createOrderValidationError(
           `${product.name} does not have enough stock.`
         );
       }
@@ -232,13 +235,13 @@ const createOrder = async (req, res) => {
         });
 
       if (!appliedPromo) {
-        throw new Error(
+        throw createOrderValidationError(
           "Promo code not found."
         );
       }
 
       if (!appliedPromo.isActive) {
-        throw new Error(
+        throw createOrderValidationError(
           "This promo code is inactive."
         );
       }
@@ -248,7 +251,7 @@ const createOrder = async (req, res) => {
           appliedPromo
         )
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           "This promo code is not active yet."
         );
       }
@@ -258,7 +261,7 @@ const createOrder = async (req, res) => {
           appliedPromo
         )
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           "This promo code has expired."
         );
       }
@@ -268,7 +271,7 @@ const createOrder = async (req, res) => {
           appliedPromo
         )
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           "This promo code has reached its usage limit."
         );
       }
@@ -279,7 +282,7 @@ const createOrder = async (req, res) => {
           appliedPromo.minOrderAmount || 0
         )
       ) {
-        throw new Error(
+        throw createOrderValidationError(
           `Minimum order amount is ${Number(
             appliedPromo.minOrderAmount || 0
           ).toFixed(2)} DT.`
@@ -333,7 +336,7 @@ const createOrder = async (req, res) => {
         );
 
       if (!updatedProduct) {
-        throw new Error(
+        throw createOrderValidationError(
           `Stock changed for ${item.name}. Please try again.`
         );
       }
@@ -507,10 +510,11 @@ const createOrder = async (req, res) => {
       }
     }
 
-    return res.status(400).json({
-      message:
-        error.message ||
-        "Failed to create order.",
+    const statusCode = error.statusCode || 500;
+    return res.status(statusCode).json({
+      message: statusCode === 400
+        ? error.message
+        : "Failed to create order.",
     });
   }
 };

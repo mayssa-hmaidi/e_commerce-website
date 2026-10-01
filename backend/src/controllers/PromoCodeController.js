@@ -1,12 +1,12 @@
 const PromoCode = require("../models/PromoCode");
 const { notifyPromotion } = require("../services/newsletterNotificationService");
 
-const schedulePromotionNotification = (promoCode) => {
-  setImmediate(() => {
-    void notifyPromotion(promoCode).catch((error) => {
-      console.error("Newsletter email failed:", error.message);
-    });
-  });
+const sendPromotionNotification = async (promoCode) => {
+  try {
+    await notifyPromotion(promoCode);
+  } catch (error) {
+    console.error("Newsletter email failed:", error.message);
+  }
 };
 
 // =========================================
@@ -236,7 +236,7 @@ const createPromoCode = async (
       });
 
     if (promoCode.isActive) {
-      schedulePromotionNotification(promoCode);
+      await sendPromotionNotification(promoCode);
     }
 
     return res.status(201).json(
@@ -552,7 +552,7 @@ const updatePromoCode = async (
     await promoCode.save();
 
     if (!wasActive && promoCode.isActive) {
-      schedulePromotionNotification(promoCode);
+      await sendPromotionNotification(promoCode);
     }
 
     return res.status(200).json(
@@ -599,7 +599,7 @@ const togglePromoCode = async (
     await promoCode.save();
 
     if (!wasActive && promoCode.isActive) {
-      schedulePromotionNotification(promoCode);
+      await sendPromotionNotification(promoCode);
     }
 
     return res.status(200).json(

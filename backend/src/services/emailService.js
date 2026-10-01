@@ -43,10 +43,6 @@ const getSafeSmtpError = (error) => {
   return `${descriptions[code] || "Gmail SMTP message send failed."} (code: ${code})`;
 };
 
-console.info(
-  `Gmail email configuration: GMAIL_USER=${process.env.GMAIL_USER?.trim() ? "present" : "missing"}, GMAIL_APP_PASSWORD=${process.env.GMAIL_APP_PASSWORD?.trim() ? "present" : "missing"}`,
-);
-
 const verifyEmailTransport = async () => {
   if (!isEmailConfigured()) {
     console.info("Gmail SMTP verification skipped: credentials are not configured.");
@@ -62,10 +58,6 @@ const verifyEmailTransport = async () => {
     return false;
   }
 };
-
-if (isEmailConfigured()) {
-  void verifyEmailTransport();
-}
 
 const sendBatchEmails = async (messages) => {
   const mailTransporter = getTransporter();

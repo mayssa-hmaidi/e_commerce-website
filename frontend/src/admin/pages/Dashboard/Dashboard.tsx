@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { apiFetch as fetch } from "../../../services/apiClient";
 
 import {
   Area,
@@ -22,8 +23,8 @@ import {
 
 import "./Dashboard.css";
 
-const PRODUCTS_API = "http://localhost:5000/api/products";
-const ORDERS_API = "http://localhost:5000/api/orders";
+const PRODUCTS_API = "/api/products";
+const ORDERS_API = "/api/orders";
 
 type Product = {
   _id: string;
@@ -63,17 +64,13 @@ function Dashboard() {
   // ANALYTICS
   // =================================
 
-  const [analytics, setAnalytics] =
-    useState<AnalyticsOverview | null>(null);
+  const [analytics, setAnalytics] = useState<AnalyticsOverview | null>(null);
 
-  const [selectedPeriod, setSelectedPeriod] =
-    useState<Period>("30d");
+  const [selectedPeriod, setSelectedPeriod] = useState<Period>("30d");
 
-  const [analyticsLoading, setAnalyticsLoading] =
-    useState(true);
+  const [analyticsLoading, setAnalyticsLoading] = useState(true);
 
-  const [periodMenuOpen, setPeriodMenuOpen] =
-    useState(false);
+  const [periodMenuOpen, setPeriodMenuOpen] = useState(false);
 
   // =================================
   // FETCH PRODUCTS + ORDERS
@@ -82,22 +79,10 @@ function Dashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const token = localStorage.getItem("adminToken");
-
-        if (!token) {
-          return;
-        }
-
-        const [productsResponse, ordersResponse] =
-          await Promise.all([
-            fetch(PRODUCTS_API),
-
-            fetch(ORDERS_API, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }),
-          ]);
+        const [productsResponse, ordersResponse] = await Promise.all([
+          fetch(PRODUCTS_API),
+          fetch(ORDERS_API),
+        ]);
 
         if (!productsResponse.ok) {
           throw new Error("Failed to fetch products");
@@ -107,11 +92,9 @@ function Dashboard() {
           throw new Error("Failed to fetch orders");
         }
 
-        const products: Product[] =
-          await productsResponse.json();
+        const products: Product[] = await productsResponse.json();
 
-        const orders: Order[] =
-          await ordersResponse.json();
+        const orders: Order[] = await ordersResponse.json();
 
         // =================================
         // PRODUCTS
@@ -120,8 +103,7 @@ function Dashboard() {
         setProductsCount(products.length);
 
         const totalStock = products.reduce(
-          (total, product) =>
-            total + (product.stock || 0),
+          (total, product) => total + (product.stock || 0),
           0,
         );
 
@@ -137,9 +119,7 @@ function Dashboard() {
           (order) => order.status === "pending",
         );
 
-        setPendingOrdersCount(
-          pendingOrders.length,
-        );
+        setPendingOrdersCount(pendingOrders.length);
 
         // =================================
         // RECENT ORDERS
@@ -148,17 +128,13 @@ function Dashboard() {
         const latestOrders = [...orders]
           .sort(
             (a, b) =>
-              new Date(b.createdAt).getTime() -
-              new Date(a.createdAt).getTime(),
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
           )
           .slice(0, 5);
 
         setRecentOrders(latestOrders);
       } catch (error) {
-        console.error(
-          "Failed to load dashboard:",
-          error,
-        );
+        console.error("Failed to load dashboard:", error);
       } finally {
         setLoading(false);
       }
@@ -176,15 +152,11 @@ function Dashboard() {
       try {
         setAnalyticsLoading(true);
 
-        const data =
-          await getAnalyticsOverview(selectedPeriod);
+        const data = await getAnalyticsOverview(selectedPeriod);
 
         setAnalytics(data);
       } catch (error) {
-        console.error(
-          "Failed to load analytics:",
-          error,
-        );
+        console.error("Failed to load analytics:", error);
 
         setAnalytics(null);
       } finally {
@@ -199,8 +171,7 @@ function Dashboard() {
   // TOTAL SALES
   // =================================
 
-  const totalSales =
-    analytics?.summary.totalSales ?? 0;
+  const totalSales = analytics?.summary.totalSales ?? 0;
 
   // =================================
   // PERIOD LABEL
@@ -244,14 +215,11 @@ function Dashboard() {
   // =================================
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString(
-      "en-GB",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      },
-    );
+    return new Date(date).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
   };
 
   // =================================
@@ -274,9 +242,7 @@ function Dashboard() {
   // CHANGE PERIOD
   // =================================
 
-  const handlePeriodChange = (
-    period: Period,
-  ) => {
+  const handlePeriodChange = (period: Period) => {
     setSelectedPeriod(period);
     setPeriodMenuOpen(false);
   };
@@ -293,38 +259,29 @@ function Dashboard() {
       {/* CONTENT */}
 
       <div className="admin-dashboard-content">
-        <AdminNavbar
-          onMenuClick={() => setSidebarOpen(true)}
-        />
+        <AdminNavbar onMenuClick={() => setSidebarOpen(true)} />
 
         <main className="admin-dashboard-main">
           {/* HEADER */}
 
           <section className="admin-dashboard-header">
             <div>
-              <p className="admin-dashboard-label">
-                OVERVIEW
-              </p>
+              <p className="admin-dashboard-label">OVERVIEW</p>
 
               <h1>Dashboard</h1>
 
-              <p>
-                Overview of your store performance.
-              </p>
+              <p>Overview of your store performance.</p>
             </div>
 
             <div className="admin-dashboard-date">
               <i className="bi bi-calendar3"></i>
 
               <span>
-                {new Date().toLocaleDateString(
-                  "en-GB",
-                  {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  },
-                )}
+                {new Date().toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
               </span>
             </div>
           </section>
@@ -343,9 +300,7 @@ function Dashboard() {
                 <span>Products</span>
               </div>
 
-              <strong>
-                {loading ? "..." : productsCount}
-              </strong>
+              <strong>{loading ? "..." : productsCount}</strong>
 
               <p>Total products</p>
             </div>
@@ -361,9 +316,7 @@ function Dashboard() {
                 <span>Orders</span>
               </div>
 
-              <strong>
-                {loading ? "..." : ordersCount}
-              </strong>
+              <strong>{loading ? "..." : ordersCount}</strong>
 
               <p>Total orders</p>
             </div>
@@ -379,9 +332,7 @@ function Dashboard() {
                 <span>Stock</span>
               </div>
 
-              <strong>
-                {loading ? "..." : stockCount}
-              </strong>
+              <strong>{loading ? "..." : stockCount}</strong>
 
               <p>Units in stock</p>
             </div>
@@ -398,9 +349,7 @@ function Dashboard() {
               </div>
 
               <strong>
-                {analyticsLoading
-                  ? "..."
-                  : `${totalSales.toFixed(1)} DT`}
+                {analyticsLoading ? "..." : `${totalSales.toFixed(1)} DT`}
               </strong>
 
               <p>Total sales</p>
@@ -424,11 +373,7 @@ function Dashboard() {
                   <button
                     type="button"
                     className="admin-period-button"
-                    onClick={() =>
-                      setPeriodMenuOpen(
-                        (current) => !current,
-                      )
-                    }
+                    onClick={() => setPeriodMenuOpen((current) => !current)}
                   >
                     {periodLabel}
 
@@ -439,42 +384,24 @@ function Dashboard() {
                     <div className="admin-period-menu">
                       <button
                         type="button"
-                        className={
-                          selectedPeriod === "7d"
-                            ? "active"
-                            : ""
-                        }
-                        onClick={() =>
-                          handlePeriodChange("7d")
-                        }
+                        className={selectedPeriod === "7d" ? "active" : ""}
+                        onClick={() => handlePeriodChange("7d")}
                       >
                         Last 7 Days
                       </button>
 
                       <button
                         type="button"
-                        className={
-                          selectedPeriod === "30d"
-                            ? "active"
-                            : ""
-                        }
-                        onClick={() =>
-                          handlePeriodChange("30d")
-                        }
+                        className={selectedPeriod === "30d" ? "active" : ""}
+                        onClick={() => handlePeriodChange("30d")}
                       >
                         Last 30 Days
                       </button>
 
                       <button
                         type="button"
-                        className={
-                          selectedPeriod === "12m"
-                            ? "active"
-                            : ""
-                        }
-                        onClick={() =>
-                          handlePeriodChange("12m")
-                        }
+                        className={selectedPeriod === "12m" ? "active" : ""}
+                        onClick={() => handlePeriodChange("12m")}
                       >
                         Last 12 Months
                       </button>
@@ -490,23 +417,16 @@ function Dashboard() {
                   <div className="admin-chart-state">
                     <i className="bi bi-arrow-repeat"></i>
 
-                    <span>
-                      Loading analytics...
-                    </span>
+                    <span>Loading analytics...</span>
                   </div>
                 ) : chartData.length === 0 ? (
                   <div className="admin-chart-state">
                     <i className="bi bi-bar-chart"></i>
 
-                    <span>
-                      No sales data for this period.
-                    </span>
+                    <span>No sales data for this period.</span>
                   </div>
                 ) : (
-                  <ResponsiveContainer
-                    width="100%"
-                    height="100%"
-                  >
+                  <ResponsiveContainer width="100%" height="100%">
                     <LineChart
                       data={chartData}
                       margin={{
@@ -561,18 +481,14 @@ function Dashboard() {
                           fontSize: 10,
                           fill: "#888",
                         }}
-                        tickFormatter={(value) =>
-                          `${value} DT`
-                        }
+                        tickFormatter={(value) => `${value} DT`}
                       />
 
                       <Tooltip
                         contentStyle={{
                           borderRadius: "8px",
-                          border:
-                            "1px solid #e5e7eb",
-                          boxShadow:
-                            "0 8px 24px rgba(0,0,0,0.08)",
+                          border: "1px solid #e5e7eb",
+                          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
                         }}
                         formatter={(value) => [
                           `${Number(value).toFixed(1)} DT`,
@@ -615,9 +531,7 @@ function Dashboard() {
                   <span>Total Sales</span>
 
                   <strong>
-                    {analyticsLoading
-                      ? "..."
-                      : `${totalSales.toFixed(1)} DT`}
+                    {analyticsLoading ? "..." : `${totalSales.toFixed(1)} DT`}
                   </strong>
                 </div>
 
@@ -637,47 +551,27 @@ function Dashboard() {
                   <h2>Recent Orders</h2>
                 </div>
 
-                <Link to="/admin/orders">
-                  View all
-                </Link>
+                <Link to="/admin/orders">View all</Link>
               </div>
 
               <div className="admin-recent-orders-list">
                 {recentOrders.length === 0 ? (
-                  <div className="admin-recent-empty">
-                    No orders yet.
-                  </div>
+                  <div className="admin-recent-empty">No orders yet.</div>
                 ) : (
                   recentOrders.map((order) => (
-                    <div
-                      className="admin-recent-order"
-                      key={order._id}
-                    >
+                    <div className="admin-recent-order" key={order._id}>
                       <div className="admin-recent-order-info">
-                        <strong>
-                          {getShortOrderId(order._id)}
-                        </strong>
+                        <strong>{getShortOrderId(order._id)}</strong>
 
-                        <span>
-                          {order.customer?.name ||
-                            "Customer"}
-                        </span>
+                        <span>{order.customer?.name || "Customer"}</span>
 
-                        <small>
-                          {formatDate(order.createdAt)}
-                        </small>
+                        <small>{formatDate(order.createdAt)}</small>
                       </div>
 
                       <div className="admin-recent-order-right">
-                        <strong>
-                          {(order.total || 0).toFixed(1)} DT
-                        </strong>
+                        <strong>{(order.total || 0).toFixed(1)} DT</strong>
 
-                        <span
-                          className={getStatusClass(
-                            order.status,
-                          )}
-                        >
+                        <span className={getStatusClass(order.status)}>
                           {order.status}
                         </span>
                       </div>
@@ -707,15 +601,9 @@ function Dashboard() {
               </div>
 
               <div className="dashboard-alert-content">
-                <strong>
-                  {loading
-                    ? "..."
-                    : pendingOrdersCount}
-                </strong>
+                <strong>{loading ? "..." : pendingOrdersCount}</strong>
 
-                <span>
-                  pending orders need attention
-                </span>
+                <span>pending orders need attention</span>
               </div>
 
               <Link to="/admin/orders">
@@ -736,64 +624,44 @@ function Dashboard() {
               </div>
 
               <div className="admin-action-grid">
-                <Link
-                  to="/admin/products/add"
-                  className="admin-action-card"
-                >
+                <Link to="/admin/products/add" className="admin-action-card">
                   <div className="admin-action-icon add-product">
                     <i className="bi bi-plus-lg"></i>
                   </div>
 
                   <strong>Add Product</strong>
 
-                  <span>
-                    Create a new product
-                  </span>
+                  <span>Create a new product</span>
                 </Link>
 
-                <Link
-                  to="/admin/orders"
-                  className="admin-action-card"
-                >
+                <Link to="/admin/orders" className="admin-action-card">
                   <div className="admin-action-icon view-orders">
                     <i className="bi bi-receipt"></i>
                   </div>
 
                   <strong>View Orders</strong>
 
-                  <span>
-                    Manage customer orders
-                  </span>
+                  <span>Manage customer orders</span>
                 </Link>
 
-                <Link
-                  to="/admin/products"
-                  className="admin-action-card"
-                >
+                <Link to="/admin/products" className="admin-action-card">
                   <div className="admin-action-icon manage-stock">
                     <i className="bi bi-box-seam"></i>
                   </div>
 
                   <strong>Manage Stock</strong>
 
-                  <span>
-                    Monitor inventory
-                  </span>
+                  <span>Monitor inventory</span>
                 </Link>
 
-                <Link
-                  to="/admin/customers"
-                  className="admin-action-card"
-                >
+                <Link to="/admin/customers" className="admin-action-card">
                   <div className="admin-action-icon customers">
                     <i className="bi bi-people"></i>
                   </div>
 
                   <strong>Customers</strong>
 
-                  <span>
-                    View customer data
-                  </span>
+                  <span>View customer data</span>
                 </Link>
               </div>
             </div>

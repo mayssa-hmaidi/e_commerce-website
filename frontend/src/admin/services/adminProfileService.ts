@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/admin";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/admin";
 
 // =========================================
 // TYPES
@@ -32,21 +33,6 @@ type ChangePasswordResponse = {
 // HEADERS
 // =========================================
 
-const getHeaders = (): HeadersInit => {
-  const token =
-    localStorage.getItem("adminToken");
-
-  return {
-    "Content-Type": "application/json",
-
-    ...(token
-      ? {
-          Authorization: `Bearer ${token}`,
-        }
-      : {}),
-  };
-};
-
 // =========================================
 // GET PROFILE
 // =========================================
@@ -57,7 +43,6 @@ export const getAdminProfile =
       `${API_URL}/profile`,
       {
         method: "GET",
-        headers: getHeaders(),
       },
     );
 
@@ -94,7 +79,7 @@ export const updateAdminProfile =
       {
         method: "PUT",
 
-        headers: getHeaders(),
+        headers: { "Content-Type": "application/json" },
 
         body: JSON.stringify({
           name,
@@ -136,7 +121,7 @@ export const changeAdminPassword =
       {
         method: "PUT",
 
-        headers: getHeaders(),
+        headers: { "Content-Type": "application/json" },
 
         body: JSON.stringify({
           currentPassword,

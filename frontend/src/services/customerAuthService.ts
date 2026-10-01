@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/customer-auth";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/customer-auth";
 
 export type Customer = {
   _id: string;
@@ -24,7 +25,6 @@ export type LoginCustomerPayload = {
 
 export type CustomerAuthResponse = {
   message: string;
-  token: string;
   customer: Customer;
 };
 
@@ -138,25 +138,8 @@ export const resetCustomerPassword = async (
 
 export const getCurrentCustomer =
   async (): Promise<Customer> => {
-    const token =
-      localStorage.getItem(
-        "customerToken",
-      );
-
-    if (!token) {
-      throw new Error(
-        "Customer authentication required.",
-      );
-    }
-
     const response = await fetch(
       `${API_URL}/me`,
-      {
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-        },
-      },
     );
 
     return parseResponse(
@@ -168,13 +151,10 @@ export const getCurrentCustomer =
 // LOGOUT
 // =========================================
 
-export const logoutCustomer =
-  () => {
-    localStorage.removeItem(
-      "customerToken",
-    );
-
-    localStorage.removeItem(
-      "customer",
-    );
-  };
+export const logoutCustomer = async () => {
+  try {
+    await fetch(`${API_URL}/logout`, { method: "POST" });
+  } finally {
+    localStorage.removeItem("customer");
+  }
+};

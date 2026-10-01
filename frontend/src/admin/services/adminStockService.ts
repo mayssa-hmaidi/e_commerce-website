@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api";
 
 export type StockProduct = {
   _id: string;
@@ -26,21 +28,10 @@ export type StockProduct = {
 
 export const getAdminStockProducts =
   async (): Promise<StockProduct[]> => {
-    const token =
-      localStorage.getItem("adminToken");
-
     const response = await fetch(
       `${API_URL}/products`,
       {
         method: "GET",
-
-        headers: {
-          ...(token
-            ? {
-                Authorization: `Bearer ${token}`,
-              }
-            : {}),
-        },
       },
     );
 

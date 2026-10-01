@@ -32,12 +32,12 @@ const getProductChanges = (before, after) => {
   }, {});
 };
 
-const scheduleProductNotification = (notify) => {
-  setImmediate(() => {
-    void notify().catch((error) => {
-      console.error("Newsletter email failed:", error.message);
-    });
-  });
+const sendProductNotification = async (notify) => {
+  try {
+    await notify();
+  } catch (error) {
+    console.error("Newsletter email failed:", error.message);
+  }
 };
 
 // GET ALL PRODUCTS
@@ -49,7 +49,6 @@ const getProducts = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Failed to get products",
-      error: error.message,
     });
   }
 };
@@ -69,7 +68,6 @@ const getProductById = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Failed to get product",
-      error: error.message,
     });
   }
 };
@@ -79,13 +77,12 @@ const createProduct = async (req, res) => {
   try {
     const product = await Product.create(req.body);
 
-    scheduleProductNotification(() => notifyNewProduct(product));
+    await sendProductNotification(() => notifyNewProduct(product));
 
     res.status(201).json(product);
   } catch (error) {
     res.status(500).json({
       message: "Failed to create product",
-      error: error.message,
     });
   }
 };
@@ -114,7 +111,7 @@ const updateProduct = async (req, res) => {
 
     if (Object.keys(changes).length > 0) {
       const eventKey = `product:update:${product._id}:${product.updatedAt.toISOString()}`;
-      scheduleProductNotification(() =>
+      await sendProductNotification(() =>
         notifyProductUpdated(product, changes, eventKey),
       );
     }
@@ -123,7 +120,6 @@ const updateProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Failed to update product",
-      error: error.message,
     });
   }
 };
@@ -140,7 +136,7 @@ const deleteProduct = async (req, res) => {
     }
 
     const eventKey = `product:delete:${product._id}:${new Date().toISOString()}`;
-    scheduleProductNotification(() => notifyProductRemoved(product, eventKey));
+    await sendProductNotification(() => notifyProductRemoved(product, eventKey));
 
     res.status(200).json({
       message: "Product deleted successfully",
@@ -148,7 +144,6 @@ const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Failed to delete product",
-      error: error.message,
     });
   }
 };

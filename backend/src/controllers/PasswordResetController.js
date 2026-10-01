@@ -6,6 +6,7 @@ const Admin = require("../models/Admin");
 const PasswordResetToken = require("../models/PasswordResetToken");
 const { sendBatchEmails } = require("../services/emailService");
 const { createPasswordResetEmail } = require("../services/emailTemplates");
+const getFrontendUrl = require("../utils/frontendUrl");
 
 const RESET_TOKEN_TTL_MINUTES = 20;
 const GENERIC_REQUEST_MESSAGE =
@@ -15,17 +16,6 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const safeErrorCode = (error) => {
   const code = String(error?.code || error?.name || "UNKNOWN");
   return /^[A-Z0-9_]+$/.test(code) ? code : "UNKNOWN";
-};
-
-const getAppUrl = () => {
-  const appUrl = String(process.env.APP_URL || "").trim().replace(/\/$/, "");
-  const parsedUrl = new URL(appUrl);
-
-  if (!["http:", "https:"].includes(parsedUrl.protocol)) {
-    throw new Error("Invalid application URL.");
-  }
-
-  return appUrl;
 };
 
 const createForgotPasswordHandler = (UserModel, userType) =>
@@ -69,7 +59,7 @@ const createForgotPasswordHandler = (UserModel, userType) =>
         const resetPath = userType === "admin"
           ? "/admin/reset-password"
           : "/reset-password";
-        const resetUrl = `${getAppUrl()}${resetPath}?token=${encodeURIComponent(rawToken)}`;
+        const resetUrl = `${getFrontendUrl()}${resetPath}?token=${encodeURIComponent(rawToken)}`;
         const emailContent = createPasswordResetEmail({ resetUrl });
 
         try {

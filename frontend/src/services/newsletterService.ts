@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/newsletter";
+import { apiFetch as fetch } from "./apiClient";
+
+const API_URL = "/api/newsletter";
 
 type NewsletterResponse = {
   message: string;

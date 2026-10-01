@@ -471,8 +471,6 @@ const getAnalyticsOverview = async (
     res.status(500).json({
       message:
         "Failed to load analytics",
-
-      error: error.message,
     });
   }
 };

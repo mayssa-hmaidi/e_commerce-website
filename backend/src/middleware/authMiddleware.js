@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { getAuthToken } = require("../utils/authCookies");
 
 const protect = (
   req,
@@ -6,29 +7,30 @@ const protect = (
   next,
 ) => {
   try {
-    const authHeader =
-      req.headers.authorization;
-
-    // =====================================
-    // CHECK TOKEN
-    // =====================================
-
-    if (
-      !authHeader ||
-      !authHeader.startsWith(
-        "Bearer ",
-      )
-    ) {
-      return res.status(401).json({
-        message:
-          "Unauthorized. No token provided.",
-      });
-    }
-
-    const token =
-      authHeader.split(" ")[1];
+    const token = getAuthToken(req, "adminToken");
 
     if (!token) {
+      const customerToken = getAuthToken(req, "customerToken");
+
+      if (customerToken) {
+        try {
+          const customer = jwt.verify(
+            customerToken,
+            process.env.JWT_SECRET,
+          );
+
+          if (customer.role === "customer") {
+            return res.status(403).json({
+              message: "Admin access required.",
+            });
+          }
+        } catch {
+          return res.status(401).json({
+            message: "Unauthorized. Invalid or expired token.",
+          });
+        }
+      }
+
       return res.status(401).json({
         message:
           "Unauthorized. No token provided.",
@@ -46,13 +48,7 @@ const protect = (
       );
 
     // =====================================
-    // BLOCK CUSTOMER TOKENS
-    // =====================================
-
-    if (
-      decoded.role ===
-      "customer"
-    ) {
+    if (decoded.role !== "admin") {
       return res.status(403).json({
         message:
           "Admin access required.",
@@ -68,10 +64,7 @@ const protect = (
 
     next();
   } catch (error) {
-    console.error(
-      "Auth middleware error:",
-      error,
-    );
+    console.error("Admin authentication failed:", error.name);
 
     return res.status(401).json({
       message:

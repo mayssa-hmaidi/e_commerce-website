@@ -24,9 +24,6 @@ const analyticsRoutes =
 const customerRoutes =
   require("./routes/customerRoutes");
 
-const settingsRoutes =
-  require("./routes/settingsRoutes");
-
 const promoCodeRoutes =
   require("./routes/promoCodeRoutes");
 
@@ -47,21 +44,72 @@ const app = express();
 const PORT =
   process.env.PORT || 5000;
 
-// =========================================
-// DATABASE
-// =========================================
-
-connectDB();
+const allowedOrigins = new Set(
+  [
+    process.env.FRONTEND_URL,
+    process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`,
+    process.env.VERCEL_BRANCH_URL && `https://${process.env.VERCEL_BRANCH_URL}`,
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173",
+  ]
+    .filter(Boolean)
+    .map((origin) => origin.replace(/\/$/, "")),
+);
 
 // =========================================
 // GLOBAL MIDDLEWARE
 // =========================================
 
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, callback) {
+      callback(null, !origin || allowedOrigins.has(origin));
+    },
+    credentials: true,
+  }),
+);
+
+app.use((req, res, next) => {
+  if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+    return next();
+  }
+
+  const origin = req.get("origin");
+
+  if (origin && !allowedOrigins.has(origin)) {
+    return res.status(403).json({
+      message: "Request origin is not allowed.",
+    });
+  }
+
+  return next();
+});
 
 app.use(
   express.json(),
 );
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
+app.use(async (req, res, next) => {
+  if (
+    req.method === "POST" &&
+    ["/api/admin/logout", "/api/customer-auth/logout"].includes(req.path)
+  ) {
+    return next();
+  }
+
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // =========================================
 // ROUTES
@@ -90,11 +138,6 @@ app.use(
 app.use(
   "/api/customers",
   customerRoutes,
-);
-
-app.use(
-  "/api/settings",
-  settingsRoutes,
 );
 
 app.use(
@@ -134,6 +177,10 @@ app.get(
 // ERROR HANDLER
 // =========================================
 
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found." });
+});
+
 app.use(
   errorHandler,
 );
@@ -142,11 +189,10 @@ app.use(
 // START SERVER
 // =========================================
 
-app.listen(
-  PORT,
-  () => {
-    console.log(
-      `Server running on port ${PORT}`,
-    );
-  },
-);
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

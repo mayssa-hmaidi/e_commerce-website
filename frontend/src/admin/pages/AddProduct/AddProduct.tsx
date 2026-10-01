@@ -1,6 +1,7 @@
 import { useState, type SubmitEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { apiFetch as fetch } from "../../../services/apiClient";
 import { uploadImage } from "../../../services/cloudinaryService";
 
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
@@ -8,7 +9,7 @@ import AdminSidebar from "../../components/AdminSidebar/AdminSidebar";
 
 import "./AddProduct.css";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = "/api/products";
 
 type ImagePosition = "front" | "back" | "right" | "left";
 
@@ -142,13 +143,6 @@ function AddProduct() {
     try {
       setLoading(true);
 
-      const token = localStorage.getItem("adminToken");
-
-      if (!token) {
-        navigate("/admin/login");
-        return;
-      }
-
       /*
         Upload all images for every color to Cloudinary.
 
@@ -213,7 +207,6 @@ function AddProduct() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(productData),
       });

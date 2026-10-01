@@ -1,8 +1,8 @@
 const express = require("express");
 
 const {
-  createAdmin,
   loginAdmin,
+  logoutAdmin,
   getAdminProfile,
   updateAdminProfile,
   changeAdminPassword,
@@ -13,6 +13,7 @@ const {
 } = require("../controllers/PasswordResetController");
 
 const protect = require("../middleware/authMiddleware");
+const authRateLimit = require("../middleware/authRateLimit");
 
 const router = express.Router();
 
@@ -21,22 +22,22 @@ const router = express.Router();
 // =========================================
 
 router.post(
-  "/register",
-  createAdmin,
-);
-
-router.post(
   "/login",
+  authRateLimit,
   loginAdmin,
 );
 
+router.post("/logout", logoutAdmin);
+
 router.post(
   "/forgot-password",
+  authRateLimit,
   requestAdminPasswordReset,
 );
 
 router.post(
   "/reset-password",
+  authRateLimit,
   resetAdminPassword,
 );
 

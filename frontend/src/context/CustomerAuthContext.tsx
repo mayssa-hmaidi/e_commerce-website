@@ -47,13 +47,6 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const restoreSession = async () => {
-      const token = localStorage.getItem("customerToken");
-
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-
       try {
         const currentCustomer = await getCurrentCustomer();
 
@@ -63,7 +56,7 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
       } catch (error) {
         console.error("Customer session restore error:", error);
 
-        logoutCustomer();
+        localStorage.removeItem("customer");
         setCustomer(null);
       } finally {
         setIsLoading(false);
@@ -80,8 +73,6 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
   const login = async (payload: LoginCustomerPayload) => {
     const result = await loginCustomer(payload);
 
-    localStorage.setItem("customerToken", result.token);
-
     localStorage.setItem("customer", JSON.stringify(result.customer));
 
     setCustomer(result.customer);
@@ -96,8 +87,6 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
   const register = async (payload: RegisterCustomerPayload) => {
     const result = await registerCustomer(payload);
 
-    localStorage.setItem("customerToken", result.token);
-
     localStorage.setItem("customer", JSON.stringify(result.customer));
 
     setCustomer(result.customer);
@@ -110,7 +99,9 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
   // =======================================
 
   const logout = () => {
-    logoutCustomer();
+    void logoutCustomer().catch((error) => {
+      console.error("Customer logout failed:", error);
+    });
 
     setCustomer(null);
   };

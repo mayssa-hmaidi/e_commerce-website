@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 // =========================================
 // CONTEXTS
@@ -38,7 +38,6 @@ import PasswordRecovery from "./pages/PasswordRecovery/PasswordRecovery";
 // =========================================
 
 import AdminLogin from "./admin/pages/AdminLogin/AdminLogin";
-import AdminRegister from "./admin/pages/AdminRegister/AdminRegister";
 import Dashboard from "./admin/pages/Dashboard/Dashboard";
 import AdminProducts from "./admin/pages/Products/AdminProducts";
 import AddProduct from "./admin/pages/AddProduct/AddProduct";
@@ -69,7 +68,11 @@ function App() {
 
           <Route path="/" element={<Home />} />
 
+          <Route path="/products" element={<TShirts />} />
+
           <Route path="/tshirts" element={<TShirts />} />
+
+          <Route path="/product/:id" element={<ProductDetails />} />
 
           <Route path="/products/:id" element={<ProductDetails />} />
 
@@ -131,7 +134,25 @@ function App() {
           />
 
           <Route
+            path="/profile"
+            element={
+              <CustomerProtectedRoute>
+                <Account />
+              </CustomerProtectedRoute>
+            }
+          />
+
+          <Route
             path="/my-orders"
+            element={
+              <CustomerProtectedRoute>
+                <MyOrders />
+              </CustomerProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/orders"
             element={
               <CustomerProtectedRoute>
                 <MyOrders />
@@ -164,6 +185,11 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin />} />
 
           <Route
+            path="/admin"
+            element={<Navigate to="/admin/dashboard" replace />}
+          />
+
+          <Route
             path="/admin/forgot-password"
             element={<PasswordRecovery accountType="admin" mode="forgot" />}
           />
@@ -175,11 +201,7 @@ function App() {
 
           <Route
             path="/admin/register"
-            element={
-              <AdminProtectedRoute>
-                <AdminRegister />
-              </AdminProtectedRoute>
-            }
+            element={<Navigate to="/admin/login" replace />}
           />
 
           <Route
@@ -256,6 +278,15 @@ function App() {
 
           <Route
             path="/admin/promo-codes"
+            element={
+              <AdminProtectedRoute>
+                <AdminPromoCodes />
+              </AdminProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/promotions"
             element={
               <AdminProtectedRoute>
                 <AdminPromoCodes />

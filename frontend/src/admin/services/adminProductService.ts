@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api/products";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/products";
 
 export type AdminProductVariant = {
   color: string;
@@ -68,17 +70,10 @@ export const getAdminProductById = async (
 export const createAdminProduct = async (
   productData: CreateProductData
 ): Promise<AdminProduct> => {
-  const token = localStorage.getItem("adminToken");
-
-  if (!token) {
-    throw new Error("Admin not authenticated.");
-  }
-
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(productData),
   });
@@ -97,17 +92,10 @@ export const updateAdminProduct = async (
   id: string,
   productData: UpdateProductData
 ): Promise<AdminProduct> => {
-  const token = localStorage.getItem("adminToken");
-
-  if (!token) {
-    throw new Error("Admin not authenticated.");
-  }
-
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(productData),
   });
@@ -125,17 +113,8 @@ export const updateAdminProduct = async (
 export const deleteAdminProduct = async (
   id: string
 ): Promise<void> => {
-  const token = localStorage.getItem("adminToken");
-
-  if (!token) {
-    throw new Error("Admin not authenticated.");
-  }
-
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 
   const data = await response.json();

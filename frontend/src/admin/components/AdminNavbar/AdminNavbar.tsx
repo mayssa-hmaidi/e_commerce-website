@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch as fetch } from "../../../services/apiClient";
+import { logoutAdmin } from "../../services/adminService";
 
 import "./AdminNavbar.css";
 
-const ORDERS_API = "http://localhost:5000/api/orders";
+const ORDERS_API = "/api/orders";
 
-const PRODUCTS_API = "http://localhost:5000/api/products";
+const PRODUCTS_API = "/api/products";
 
 const LOW_STOCK_THRESHOLD = 5;
 
@@ -85,25 +87,9 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
 
   const loadNotifications = async () => {
     try {
-      const token = localStorage.getItem("adminToken");
-
-      if (!token) {
-        setNotifications([]);
-        return;
-      }
-
       const [ordersResponse, productsResponse] = await Promise.all([
-        fetch(ORDERS_API, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-
-        fetch(PRODUCTS_API, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+        fetch(ORDERS_API),
+        fetch(PRODUCTS_API),
       ]);
 
       if (!ordersResponse.ok || !productsResponse.ok) {
@@ -281,11 +267,8 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
   // LOGOUT
   // =========================================
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-
-    localStorage.removeItem("admin");
-
+  const handleLogout = async () => {
+    await logoutAdmin();
     localStorage.removeItem("adminReadNotifications");
 
     navigate("/admin/login");

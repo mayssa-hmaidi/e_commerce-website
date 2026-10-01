@@ -2,62 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Admin = require("../models/Admin");
+const { clearAuthCookie, setAuthCookie } = require("../utils/authCookies");
 
-// =========================================
-// CREATE ADMIN
-// =========================================
-
-const createAdmin = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        message:
-          "Name, email and password are required.",
-      });
-    }
-
-    const existingAdmin = await Admin.findOne({
-      email: email.toLowerCase().trim(),
-    });
-
-    if (existingAdmin) {
-      return res.status(400).json({
-        message: "Admin with this email already exists.",
-      });
-    }
-
-    const hashedPassword = await bcrypt.hash(
-      password,
-      10,
-    );
-
-    const admin = await Admin.create({
-      name: name.trim(),
-      email: email.toLowerCase().trim(),
-      password: hashedPassword,
-    });
-
-    return res.status(201).json({
-      message: "Admin created successfully.",
-      admin: {
-        id: admin._id,
-        name: admin.name,
-        email: admin.email,
-      },
-    });
-  } catch (error) {
-    console.error(
-      "Create admin error:",
-      error,
-    );
-
-    return res.status(500).json({
-      message: "Failed to create admin.",
-    });
-  }
-};
+const ADMIN_COOKIE_MAX_AGE = 24 * 60 * 60 * 1000;
 
 // =========================================
 // LOGIN
@@ -99,6 +46,7 @@ const loginAdmin = async (req, res) => {
     const token = jwt.sign(
       {
         id: admin._id.toString(),
+        role: "admin",
       },
       process.env.JWT_SECRET,
       {
@@ -106,9 +54,9 @@ const loginAdmin = async (req, res) => {
       },
     );
 
-    return res.status(200).json({
-      token,
+    setAuthCookie(res, "adminToken", token, ADMIN_COOKIE_MAX_AGE);
 
+    return res.status(200).json({
       admin: {
         id: admin._id,
         name: admin.name,
@@ -125,6 +73,11 @@ const loginAdmin = async (req, res) => {
       message: "Login failed.",
     });
   }
+};
+
+const logoutAdmin = (req, res) => {
+  clearAuthCookie(res, "adminToken");
+  return res.status(200).json({ message: "Logged out successfully." });
 };
 
 // =========================================
@@ -373,8 +326,8 @@ const changeAdminPassword = async (
 };
 
 module.exports = {
-  createAdmin,
   loginAdmin,
+  logoutAdmin,
   getAdminProfile,
   updateAdminProfile,
   changeAdminPassword,

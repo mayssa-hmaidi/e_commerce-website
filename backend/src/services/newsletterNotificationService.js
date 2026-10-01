@@ -7,21 +7,7 @@ const {
   createProductChangeEmail,
   createPromotionEmail,
 } = require("./emailTemplates");
-
-const getAppUrl = () => {
-  const appUrl = String(process.env.APP_URL || "").trim().replace(/\/$/, "");
-
-  try {
-    const parsedUrl = new URL(appUrl);
-    if (!["http:", "https:"].includes(parsedUrl.protocol)) {
-      throw new Error("Invalid APP_URL protocol.");
-    }
-  } catch {
-    throw new Error("APP_URL must be a valid public http(s) URL.");
-  }
-
-  return appUrl;
-};
+const getFrontendUrl = require("../utils/frontendUrl");
 
 const claimEvent = async (eventKey, type) => {
   try {
@@ -50,7 +36,7 @@ const sendEvent = async ({ eventKey, type, label, makeEmail }) => {
     throw new Error("Set GMAIL_USER and GMAIL_APP_PASSWORD to enable newsletter delivery.");
   }
 
-  const appUrl = getAppUrl();
+  const appUrl = getFrontendUrl();
 
   if (!(await claimEvent(eventKey, type))) {
     return;

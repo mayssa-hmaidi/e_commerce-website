@@ -1,5 +1,6 @@
-const API_URL =
-  "http://localhost:5000/api/customers";
+import { apiFetch as fetch } from "../../services/apiClient";
+
+const API_URL = "/api/customers";
 
 // =========================================
 // TYPES
@@ -18,41 +19,12 @@ export type AdminCustomer = {
 };
 
 // =========================================
-// ADMIN TOKEN
-// =========================================
-
-const getAdminToken = (): string | null => {
-  return localStorage.getItem(
-    "adminToken"
-  );
-};
-
-// =========================================
 // GET CUSTOMERS
 // =========================================
 
 export const getAdminCustomers =
   async (): Promise<AdminCustomer[]> => {
-    const token =
-      getAdminToken();
-
-    if (!token) {
-      throw new Error(
-        "Admin authentication required."
-      );
-    }
-
-    const response = await fetch(
-      API_URL,
-      {
-        method: "GET",
-
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(API_URL);
 
     let data: unknown = null;
 
