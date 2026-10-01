@@ -38,8 +38,14 @@ after(async () => {
 
 test("Vercel API entrypoint exports the existing Express app", () => {
   assert.equal(vercelHandler, app);
+  assert.equal("services" in vercelConfig, false);
+  assert.equal(
+    vercelConfig.buildCommand,
+    "npm run build --workspace frontend",
+  );
   assert.equal(vercelConfig.functions["api/[...path].js"].maxDuration, 60);
   assert.equal(vercelConfig.outputDirectory, "frontend/dist");
+  assert.equal(vercelConfig.rewrites.length, 1);
 });
 
 test("health endpoint responds without MongoDB", async () => {
@@ -79,6 +85,7 @@ test("SPA rewrite excludes API paths and allows client routes", () => {
   assert.equal(matcher.test("/admin/products"), true);
   assert.equal(matcher.test("/api"), false);
   assert.equal(matcher.test("/api/health"), false);
+  assert.equal(matcher.test("/apiary"), true);
 });
 
 test("customer and admin routes remain declared", () => {
