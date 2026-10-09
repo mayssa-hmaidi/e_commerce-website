@@ -22,6 +22,8 @@ function Hero() {
         src={heroImage}
         alt="T-shirt collection"
         className="hero-image"
+        width={2172}
+        height={724}
       />
 
       <div className="hero-overlay" />

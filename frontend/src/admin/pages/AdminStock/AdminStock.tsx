@@ -471,6 +471,8 @@ function AdminStock() {
                                     <img
                                       src={product.images[0]}
                                       alt={product.name}
+                                      width={38}
+                                      height={46}
                                     />
                                   ) : (
                                     <i className="bi bi-image" />

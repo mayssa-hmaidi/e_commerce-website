@@ -399,6 +399,8 @@ function AddProduct() {
                               <img
                                 src={URL.createObjectURL(variant.images.front)}
                                 alt={`${variant.color} front preview`}
+                                width={400}
+                                height={300}
                               />
                             ) : (
                               <span>No image selected</span>
@@ -431,6 +433,8 @@ function AddProduct() {
                               <img
                                 src={URL.createObjectURL(variant.images.back)}
                                 alt={`${variant.color} back preview`}
+                                width={400}
+                                height={300}
                               />
                             ) : (
                               <span>No image selected</span>
@@ -463,6 +467,8 @@ function AddProduct() {
                               <img
                                 src={URL.createObjectURL(variant.images.right)}
                                 alt={`${variant.color} right preview`}
+                                width={400}
+                                height={300}
                               />
                             ) : (
                               <span>No image selected</span>
@@ -495,6 +501,8 @@ function AddProduct() {
                               <img
                                 src={URL.createObjectURL(variant.images.left)}
                                 alt={`${variant.color} left preview`}
+                                width={400}
+                                height={300}
                               />
                             ) : (
                               <span>No image selected</span>

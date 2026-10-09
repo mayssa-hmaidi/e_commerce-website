@@ -103,6 +103,7 @@ function PromoCodeInput({
 
       <form className="promo-code-form" onSubmit={handleSubmit}>
         <input
+          aria-label="Promo code"
           type="text"
           value={code}
           onChange={(event) => setCode(event.target.value.toUpperCase())}

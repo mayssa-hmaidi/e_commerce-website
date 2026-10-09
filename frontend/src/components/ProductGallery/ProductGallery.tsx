@@ -25,14 +25,24 @@ function ProductGallery({ images, productName }: ProductGalleryProps) {
             onClick={() => setSelectedImage(image)}
             aria-label={`View image ${index + 1}`}
           >
-            <img src={image} alt={`${productName} ${index + 1}`} />
+            <img
+              src={image}
+              alt={`${productName} ${index + 1}`}
+              width={82}
+              height={82}
+            />
           </button>
         ))}
       </div>
 
       <div className="product-gallery-main">
         {selectedImage ? (
-          <img src={selectedImage} alt={productName} />
+          <img
+            src={selectedImage}
+            alt={productName}
+            width={800}
+            height={1000}
+          />
         ) : (
           <div className="product-gallery-no-image">No Image</div>
         )}

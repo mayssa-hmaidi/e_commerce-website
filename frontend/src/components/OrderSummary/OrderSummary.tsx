@@ -62,6 +62,8 @@ function OrderSummary({ cart }: OrderSummaryProps) {
                 src={item.image}
                 alt={item.name}
                 className="order-summary-product-image"
+                width={54}
+                height={66}
               />
 
               <div className="order-summary-product-info">

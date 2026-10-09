@@ -136,6 +136,8 @@ function AdminProducts() {
                               <img
                                 src={product.variants[0].images[0]}
                                 alt={product.name}
+                                width={64}
+                                height={64}
                               />
                             ) : (
                               <span>No Image</span>

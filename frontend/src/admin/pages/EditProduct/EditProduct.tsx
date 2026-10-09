@@ -503,6 +503,8 @@ function EditProduct() {
                             <img
                               src={getImagePreview(variant.images.front) || ""}
                               alt={`${variant.color} front`}
+                              width={400}
+                              height={300}
                             />
                           ) : (
                             <span>No image selected</span>
@@ -533,6 +535,8 @@ function EditProduct() {
                             <img
                               src={getImagePreview(variant.images.back) || ""}
                               alt={`${variant.color} back`}
+                              width={400}
+                              height={300}
                             />
                           ) : (
                             <span>No image selected</span>
@@ -563,6 +567,8 @@ function EditProduct() {
                             <img
                               src={getImagePreview(variant.images.right) || ""}
                               alt={`${variant.color} right`}
+                              width={400}
+                              height={300}
                             />
                           ) : (
                             <span>No image selected</span>
@@ -593,6 +599,8 @@ function EditProduct() {
                             <img
                               src={getImagePreview(variant.images.left) || ""}
                               alt={`${variant.color} left`}
+                              width={400}
+                              height={300}
                             />
                           ) : (
                             <span>No image selected</span>

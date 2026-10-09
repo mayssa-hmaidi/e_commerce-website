@@ -19,7 +19,13 @@ function CartItem({ item }: CartItemProps) {
       {/* PRODUCT */}
 
       <div className="cart-item-product">
-        <img src={item.image} alt={item.name} className="cart-item-image" />
+        <img
+          src={item.image}
+          alt={item.name}
+          className="cart-item-image"
+          width={72}
+          height={88}
+        />
 
         <div className="cart-item-details">
           <h3>{item.name}</h3>
