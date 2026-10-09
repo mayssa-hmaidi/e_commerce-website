@@ -57,6 +57,7 @@ function TShirts() {
           setMaxPrice(maximumPrice);
         }
       } catch (error) {
+        console.error("Products loading error:", error);
         setError("Failed to load products.");
       } finally {
         setLoading(false);

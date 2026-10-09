@@ -26,12 +26,15 @@ export const getAdminCustomers =
   async (): Promise<AdminCustomer[]> => {
     const response = await fetch(API_URL);
 
-    let data: unknown = null;
+    let data: unknown;
 
     try {
-      data =
-        await response.json();
+      data = await response.json();
     } catch {
+      if (response.ok) {
+        throw new Error("Invalid customers response from server.");
+      }
+
       data = null;
     }
 

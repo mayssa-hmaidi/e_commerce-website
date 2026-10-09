@@ -73,6 +73,7 @@ function ProductDetails() {
 
         setQuantity(1);
       } catch (error) {
+        console.error("Product loading error:", error);
         setError("Failed to load product.");
       } finally {
         setLoading(false);

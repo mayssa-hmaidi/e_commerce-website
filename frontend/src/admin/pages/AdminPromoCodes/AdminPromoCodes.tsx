@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { FormEvent } from "react";
 
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar";
@@ -65,13 +66,11 @@ function AdminPromoCodes() {
   // LOAD
   // =========================================
 
-  const loadPromoCodes = async () => {
+  const loadPromoCodes = useCallback(async () => {
     try {
-      setLoading(true);
-      setError("");
-
       const data = await getAdminPromoCodes();
 
+      setError("");
       setPromoCodes(data);
     } catch (error) {
       console.error(error);
@@ -82,11 +81,13 @@ function AdminPromoCodes() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    loadPromoCodes();
-  }, []);
+    // This effect starts an asynchronous request and updates state when it settles.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadPromoCodes();
+  }, [loadPromoCodes]);
 
   // =========================================
   // OPEN CREATE
@@ -145,7 +146,7 @@ function AdminPromoCodes() {
   // SUBMIT
   // =========================================
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {

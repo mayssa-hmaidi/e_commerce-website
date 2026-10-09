@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useCallback,
   useEffect,
   useMemo,
   useState,
@@ -44,7 +45,11 @@ type WishlistProviderProps = {
 export const WishlistProvider = ({ children }: WishlistProviderProps) => {
   const { isAuthenticated, isLoading: authLoading } = useCustomerAuth();
 
-  const [products, setProducts] = useState<WishlistProduct[]>([]);
+  const [storedProducts, setStoredProducts] = useState<WishlistProduct[]>([]);
+  const products = useMemo(
+    () => (isAuthenticated ? storedProducts : []),
+    [isAuthenticated, storedProducts],
+  );
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,9 +57,8 @@ export const WishlistProvider = ({ children }: WishlistProviderProps) => {
   // LOAD WISHLIST
   // =====================================
 
-  const refreshWishlist = async () => {
+  const refreshWishlist = useCallback(async () => {
     if (!isAuthenticated) {
-      setProducts([]);
       return;
     }
 
@@ -63,23 +67,25 @@ export const WishlistProvider = ({ children }: WishlistProviderProps) => {
 
       const data = await getWishlist();
 
-      setProducts(data.products || []);
+      setStoredProducts(data.products || []);
     } catch (error) {
       console.error("Wishlist loading error:", error);
 
-      setProducts([]);
+      setStoredProducts([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (authLoading) {
       return;
     }
 
-    refreshWishlist();
-  }, [isAuthenticated, authLoading]);
+    // This effect starts an asynchronous request and updates state when it settles.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void refreshWishlist();
+  }, [authLoading, refreshWishlist]);
 
   // =====================================
   // ADD FAVORITE
@@ -88,7 +94,7 @@ export const WishlistProvider = ({ children }: WishlistProviderProps) => {
   const addFavorite = async (productId: string) => {
     const data = await addToWishlist(productId);
 
-    setProducts(data.products || []);
+    setStoredProducts(data.products || []);
   };
 
   // =====================================
@@ -98,7 +104,7 @@ export const WishlistProvider = ({ children }: WishlistProviderProps) => {
   const removeFavorite = async (productId: string) => {
     const data = await removeFromWishlist(productId);
 
-    setProducts(data.products || []);
+    setStoredProducts(data.products || []);
   };
 
   // =====================================
@@ -136,7 +142,7 @@ export const WishlistProvider = ({ children }: WishlistProviderProps) => {
     products,
     productIds,
     count: products.length,
-    isLoading,
+    isLoading: isAuthenticated && isLoading,
 
     addFavorite,
     removeFavorite,

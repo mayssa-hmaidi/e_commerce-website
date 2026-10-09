@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import AdminNavbar from "../../components/AdminNavbar/AdminNavbar";
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar";
@@ -30,13 +30,11 @@ function AdminMessages() {
 
   const [filter, setFilter] = useState<MessageFilter>("all");
 
-  const loadMessages = async () => {
+  const loadMessages = useCallback(async () => {
     try {
-      setLoading(true);
-      setError("");
-
       const data = await getAdminContactMessages();
 
+      setError("");
       setMessages(data);
 
       setSelectedMessage((currentMessage) => {
@@ -57,11 +55,13 @@ function AdminMessages() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
+    // This effect starts an asynchronous request and updates state when it settles.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void loadMessages();
-  }, []);
+  }, [loadMessages]);
 
   const filteredMessages = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -200,7 +200,14 @@ function AdminMessages() {
               <span>{error}</span>
             </div>
 
-            <button type="button" onClick={() => void loadMessages()}>
+            <button
+              type="button"
+              onClick={() => {
+                setLoading(true);
+                setError("");
+                void loadMessages();
+              }}
+            >
               Retry
             </button>
           </div>

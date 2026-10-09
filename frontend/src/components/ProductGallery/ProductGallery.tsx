@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type ProductGalleryProps = {
   images: string[];
@@ -7,10 +7,9 @@ type ProductGalleryProps = {
 
 function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(images[0] || "");
-
-  useEffect(() => {
-    setSelectedImage(images[0] || "");
-  }, [images]);
+  const currentImage = images.includes(selectedImage)
+    ? selectedImage
+    : images[0] || "";
 
   return (
     <div className="product-gallery">
@@ -20,7 +19,7 @@ function ProductGallery({ images, productName }: ProductGalleryProps) {
             type="button"
             key={`${image}-${index}`}
             className={`product-gallery-thumbnail ${
-              selectedImage === image ? "active" : ""
+              currentImage === image ? "active" : ""
             }`}
             onClick={() => setSelectedImage(image)}
             aria-label={`View image ${index + 1}`}
@@ -36,9 +35,9 @@ function ProductGallery({ images, productName }: ProductGalleryProps) {
       </div>
 
       <div className="product-gallery-main">
-        {selectedImage ? (
+        {currentImage ? (
           <img
-            src={selectedImage}
+            src={currentImage}
             alt={productName}
             width={800}
             height={1000}

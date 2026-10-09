@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
@@ -95,10 +95,8 @@ function OrderTracking() {
 
   const [error, setError] = useState("");
 
-  const fetchOrder = async () => {
+  const fetchOrder = useCallback(async () => {
     if (!orderId) {
-      setError("Order ID is missing.");
-      setLoading(false);
       return;
     }
 
@@ -114,25 +112,31 @@ function OrderTracking() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [orderId]);
 
   useEffect(() => {
-    fetchOrder();
+    if (!orderId) {
+      return;
+    }
+
+    // This effect starts an asynchronous request and updates state when it settles.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchOrder();
 
     const interval = setInterval(() => {
-      fetchOrder();
+      void fetchOrder();
     }, 10000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [orderId]);
+  }, [fetchOrder, orderId]);
 
   /* ================================
      LOADING
   ================================ */
 
-  if (loading) {
+  if (loading && orderId) {
     return (
       <div className="order-tracking-page">
         <Navbar />
@@ -158,7 +162,7 @@ function OrderTracking() {
      ERROR
   ================================ */
 
-  if (error || !order) {
+  if (!orderId || error || !order) {
     return (
       <div className="order-tracking-page">
         <Navbar />
@@ -171,7 +175,11 @@ function OrderTracking() {
 
             <h2>Order not found</h2>
 
-            <p>{error || "We could not find this order."}</p>
+            <p>
+              {!orderId
+                ? "Order ID is missing."
+                : error || "We could not find this order."}
+            </p>
 
             <Link to="/" className="tracking-back-button">
               BACK TO HOME

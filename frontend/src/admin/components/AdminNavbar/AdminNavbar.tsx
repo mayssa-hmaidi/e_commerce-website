@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch as fetch } from "../../../services/apiClient";
 import { logoutAdmin } from "../../services/adminService";
@@ -59,33 +59,34 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
 
   const [loadingNotifications, setLoadingNotifications] = useState(true);
 
-  const [admin, setAdmin] = useState<AdminData | null>(null);
-
-  // =========================================
-  // LOAD ADMIN
-  // =========================================
-
-  useEffect(() => {
+  const [admin] = useState<AdminData | null>(() => {
     const adminData = localStorage.getItem("admin");
 
     if (!adminData) {
-      return;
+      return null;
     }
 
     try {
-      const parsedAdmin = JSON.parse(adminData);
-
-      setAdmin(parsedAdmin);
+      const parsedAdmin: unknown = JSON.parse(adminData);
+      if (typeof parsedAdmin === "object" && parsedAdmin !== null) {
+        const value = parsedAdmin as AdminData;
+        return {
+          name: typeof value.name === "string" ? value.name : undefined,
+          email: typeof value.email === "string" ? value.email : undefined,
+        };
+      }
     } catch {
-      setAdmin(null);
+      return null;
     }
-  }, []);
+
+    return null;
+  });
 
   // =========================================
   // LOAD NOTIFICATIONS
   // =========================================
 
-  const loadNotifications = async () => {
+  const loadNotifications = useCallback(async () => {
     try {
       const [ordersResponse, productsResponse] = await Promise.all([
         fetch(ORDERS_API),
@@ -181,19 +182,21 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
     } finally {
       setLoadingNotifications(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
+    // This effect starts asynchronous polling; state updates happen after the requests settle.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadNotifications();
 
     const interval = window.setInterval(() => {
-      loadNotifications();
+      void loadNotifications();
     }, 30000);
 
     return () => {
       window.clearInterval(interval);
     };
-  }, []);
+  }, [loadNotifications]);
 
   // =========================================
   // READ NOTIFICATIONS
@@ -215,9 +218,9 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
     }
   };
 
-  const readNotificationIds = useMemo(() => {
-    return getReadNotificationIds();
-  }, [notifications]);
+  const [readNotificationIds, setReadNotificationIds] = useState<string[]>(
+    getReadNotificationIds,
+  );
 
   const unreadNotifications = notifications.filter(
     (notification) => !readNotificationIds.includes(notification.id),
@@ -235,8 +238,7 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
     }
 
     localStorage.setItem("adminReadNotifications", JSON.stringify(current));
-
-    setNotifications((currentNotifications) => [...currentNotifications]);
+    setReadNotificationIds(current);
   };
 
   // =========================================
@@ -247,8 +249,7 @@ function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
     const allIds = notifications.map((notification) => notification.id);
 
     localStorage.setItem("adminReadNotifications", JSON.stringify(allIds));
-
-    setNotifications([...notifications]);
+    setReadNotificationIds(allIds);
   };
 
   // =========================================
