@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -14,6 +15,8 @@ type SortOption = "newest" | "price-low" | "price-high" | "name";
 
 function TShirts() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchParams] = useSearchParams();
+  const searchQuery = (searchParams.get("q") || "").trim();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -95,6 +98,19 @@ function TShirts() {
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
+    if (searchQuery) {
+      const normalizedQuery = searchQuery.toLowerCase();
+      result = result.filter((product) =>
+        [
+          product.name,
+          product.description,
+          ...product.variants.map((variant) => variant.color),
+        ].some((value) =>
+          value?.toLowerCase().includes(normalizedQuery),
+        ),
+      );
+    }
+
     // COLOR FILTER
     if (selectedColors.length > 0) {
       result = result.filter((product) =>
@@ -146,6 +162,7 @@ function TShirts() {
     maxPrice,
     priceRange.max,
     sortOption,
+    searchQuery,
   ]);
 
   return (

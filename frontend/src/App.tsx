@@ -56,6 +56,7 @@ import AdminNewsletter from "./admin/pages/AdminNewsletter/AdminNewsletter";
 // =========================================
 
 import AdminProtectedRoute from "./admin/components/AdminProtectedRoute/AdminProtectedRoute";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 function App() {
   return (
@@ -328,6 +329,7 @@ function App() {
             }
           />
         </Routes>
+        <Chatbot />
       </CartProvider>
     </BrowserRouter>
   );

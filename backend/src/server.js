@@ -37,6 +37,8 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const contactMessageRoutes = require("./routes/contactMessageRoutes");
 const shopSettingsRoutes = require("./routes/shopSettingsRoutes");
 const newsletterRoutes = require("./routes/newsletterRoutes");
+const chatbotRoutes = require("./routes/chatbotRoutes");
+const productSearchRoutes = require("./routes/productSearchRoutes");
 
 
 const app = express();
@@ -98,7 +100,7 @@ app.get("/api/health", (req, res) => {
 app.use(async (req, res, next) => {
   if (
     req.method === "POST" &&
-    ["/api/admin/logout", "/api/customer-auth/logout"].includes(req.path)
+    ["/api/admin/logout", "/api/customer-auth/logout", "/api/chatbot/message"].includes(req.path)
   ) {
     return next();
   }
@@ -159,6 +161,8 @@ app.use(
 );
 app.use("/api/settings", shopSettingsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
+app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/search", productSearchRoutes);
 // =========================================
 // ROOT
 // =========================================

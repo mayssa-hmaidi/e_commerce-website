@@ -55,6 +55,19 @@ test("health endpoint responds without MongoDB", async () => {
   assert.deepEqual(await response.json(), { status: "ok" });
 });
 
+test("chatbot responds without MongoDB", async () => {
+  const response = await fetch(`${baseUrl}/api/chatbot/message`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "How can I track my order?" }),
+  });
+  const body = await response.json();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.success, true);
+  assert.match(body.reply, /My Orders/i);
+});
+
 test("products route is mounted once at /api/products", () => {
   const productMounts = app.router.stack.filter(
     (layer) => layer.name === "router" && layer.match("/api/products"),

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useCustomerAuth } from "../../context/CustomerAuthContext";
 import { useWishlist } from "../../context/WishlistContext";
+import ProductSearch from "../search/ProductSearch";
 
 import "./Navbar.css";
 
@@ -67,6 +68,8 @@ function Navbar() {
 
         {/* ACTIONS */}
         <div className="navbar-actions">
+          <ProductSearch />
+
           {/* FAVORITES */}
           <Link
             to={isAuthenticated ? "/favorites" : "/login"}
